@@ -14,6 +14,7 @@ public class SquadroBoard implements IPartie2{
 	private Piece[] j1=new Piece [5] ;
 	private Piece[] j2=new Piece [5] ;
 	private HashMap<String, Integer> col = new HashMap<String, Integer>(); //Les lettres correspondant aux colonnes
+	private HashMap<Integer, String> colChiffre = new HashMap<Integer, String>();
 	
 	public SquadroBoard(char[][] p, Piece[] pieceJ1, Piece[] pieceJ2) {
 		plateau=p;
@@ -27,6 +28,14 @@ public class SquadroBoard implements IPartie2{
 		col.put("E", 4);
 		col.put("F", 5);
 		col.put("G", 6);
+		
+		colChiffre.put(0, "A");
+		colChiffre.put(1, "B");
+		colChiffre.put(2, "C");
+		colChiffre.put(3, "D");
+		colChiffre.put(4, "E");
+		colChiffre.put(5, "F");
+		colChiffre.put(6, "G");
 		
 		this.plateau=p;
 		this.setJ1(pieceJ1);
@@ -129,24 +138,60 @@ public class SquadroBoard implements IPartie2{
 		
 		//Peut-etre mieux de verifier le coup directement, sans avoir a creer le tableau entier des coups possibles :
 		int[] tab = stringToMove(move);
-		if(player.equals("v")) { 		//si le joueur joue verticalement
+		if(player.equals("vertical")) { 		//si le joueur joue verticalement
 			int valDep = j1[tab[1]].getDeplacement();
-			if(tab[0] != tab[2] || Math.abs(tab[2]-tab[0]) != valDep) { //Si la colonne change ou qu'on ne respecte pas la valeur de deplacement
+			if(tab[0] != tab[2] || Math.abs(tab[3]-tab[1]) != valDep || tab[3]>=7 || tab[3]<0) { //Si la colonne change ou qu'on ne respecte pas la valeur de deplacement ou qu'on sot des mimites du tableau
 				return false;
 			}
 		} else {	//si le joueur joue horizontalement
 			int valDep = j2[tab[0]].getDeplacement();
-			if(tab[1] != tab[3]|| Math.abs(tab[3]-tab[1]) != valDep) { //Si la ligne change ou qu'on ne respecte pas la valeur de deplacement
+			if(tab[1] != tab[3]|| Math.abs(tab[2]-tab[0]) != valDep || tab[2]>=7 || tab[2]<0) { //Si la ligne change ou qu'on ne respecte pas la valeur de deplacement
 				return false;
 			}
 		}
 		return true;
 	}
 
+	//Il faudra prendre en compte les allers retours pendant le coup et les sauts par dessus des adversaires
 	@Override
 	public String[] possibleMoves(String player) {
-		// TODO Auto-generated method stub
-		
+		String[] moveList = new String[5]; //Un coup par piece
+		if(player.equals("vertical")) {	//si le joueur joue verticalement
+			for(int i=0; i< j1.length; i++) {	//On rajoute le coups possible pour chaque piece
+				Piece p = j1[i];
+				
+				int x = p.getX();
+				int d;
+				if(p.getAR().equals("aller")) {
+					d = p.getDeplacement();
+				}else {
+					d = - p.getDeplacement();
+				}
+				int sum = x+d;
+				
+				String coup = colChiffre.get(i) + x + "-" + colChiffre.get(i) + sum;
+				if(isValidMove(coup, player)) { //If innutile ?
+					moveList[i] = coup;
+				}else {
+					moveList[i] = null;
+				}
+			}
+		} else {	//si le joueur joue horizontalement
+			for(int i=0; i<j2.length; i++) {
+				Piece p = j2[i];
+				
+				int y = p.getY();
+				int d;
+				if(p.getAR().equals("aller")) {
+					d = p.getDeplacement();
+				}else {
+					d = - p.getDeplacement();
+				}
+				int sum = y+d;
+				
+				String coup = y + i + "-" + sum + i;
+			}
+		}
 		return null;
 	}
 
@@ -195,9 +240,9 @@ public class SquadroBoard implements IPartie2{
 		int[] tab = new int[4];
 		
 		String s1 = move.substring(0, 1);
-		String s2 = move.substring(0, 1);
-		String s3 = move.substring(0, 1);
-		String s4 = move.substring(0, 1);
+		String s2 = move.substring(1, 2);
+		String s3 = move.substring(3, 4);
+		String s4 = move.substring(4);
 		
 		tab[0] = col.get(s1);
 		tab[1] = Integer.parseInt(s2);
