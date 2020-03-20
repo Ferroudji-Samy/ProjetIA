@@ -17,9 +17,9 @@ public class SquadroBoard implements IPartie2{
 	private HashMap<Integer, String> colChiffre = new HashMap<Integer, String>();
 	private String lastPlayer;
 	public SquadroBoard(char[][] p, Piece[] pieceJ1, Piece[] pieceJ2) {
-		plateau=p;
-		j1=pieceJ1;
-		j2=pieceJ2;
+		this.plateau=p;
+		this.j1=pieceJ1;
+		this.j2=pieceJ2;
 		
 		col.put("A", 0);
 		col.put("B", 1);
@@ -52,12 +52,13 @@ public class SquadroBoard implements IPartie2{
 		try {
 			for (String ligne : Files.readAllLines(Paths.get(fileName))) {
 				for (String chaine : ligne.split(" ")){
-					if(chaine != "^" || chaine !=">" || chaine !="." || chaine != "v" || chaine !="<" ) {
+
+					if(chaine.contains(".")||chaine.contains(">")||chaine.contains("<")||chaine.contains("^")||chaine.contains("v")) {
 						for(int i=0;i<7;i++) {
-							plateau[i][y]=chaine.charAt(i);
+							plateau[y][i]=chaine.charAt(i);
 						}
 						y++;
-						
+				
 					}
 				}
 			}
@@ -73,7 +74,6 @@ public class SquadroBoard implements IPartie2{
 		
 		Path fichier = Paths.get(fileName);
 		
-		ArrayList<String> afficheVertical = new ArrayList<String>();
 		ArrayList<String> afficheHorizontal = new ArrayList<String>();
 		afficheHorizontal.add("%  ABCDEFG");
 		ArrayList<String> afficheLigne = new ArrayList<String>();
@@ -87,17 +87,9 @@ public class SquadroBoard implements IPartie2{
 		}
 
 		for(char[] ligne : this.plateau) {
-			
-			afficheVertical.add("%0"+count);
-			try {
-				Files.write(fichier,afficheVertical,Charset.forName("UTF-8"), StandardOpenOption.APPEND);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			
-			afficheLigne.add(ligne.toString());
+
+			afficheLigne.add("0"+count+" "+String.valueOf(ligne)+" "+"0"+count);
+ 
 			try {
 				Files.write(fichier,afficheLigne,Charset.forName("UTF-8"), StandardOpenOption.APPEND);
 			} catch (IOException e) {
@@ -106,13 +98,6 @@ public class SquadroBoard implements IPartie2{
 			}
 			afficheLigne.clear();
 			
-			try {
-				Files.write(fichier,afficheVertical,Charset.forName("UTF-8"), StandardOpenOption.APPEND);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			afficheVertical.clear();
 			count++;
 			
 		}
