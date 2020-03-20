@@ -1,7 +1,13 @@
+
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SquadroBoard implements IPartie2{
 	
@@ -42,6 +48,59 @@ public class SquadroBoard implements IPartie2{
 	@Override
 	public void saveToFile(String fileName) {
 		// TODO Auto-generated method stub
+		
+		Path fichier = Paths.get(fileName);
+		
+		ArrayList<String> afficheVertical = new ArrayList();
+		ArrayList<String> afficheHorizontal = new ArrayList();
+		afficheHorizontal.add("%  ABCDEFG");
+		ArrayList<String> afficheLigne = new ArrayList();
+		int count=1;
+		
+		try {
+			Files.write(fichier,afficheHorizontal,Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		for(char[] ligne : this.plateau) {
+			
+			afficheVertical.add("%0"+count);
+			try {
+				Files.write(fichier,afficheVertical,Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			
+			afficheLigne.add(ligne.toString());
+			try {
+				Files.write(fichier,afficheLigne,Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			afficheLigne.clear();
+			
+			try {
+				Files.write(fichier,afficheVertical,Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			afficheVertical.clear();
+			count++;
+			
+		}
+		
+		try {
+			Files.write(fichier,afficheHorizontal,Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
