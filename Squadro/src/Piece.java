@@ -3,14 +3,14 @@ public class Piece {
 	
 	private String Joueur;
 	private int x,y;
-	private String AR;
+	private int AR;
 	private int deplacement;
 	
 	public Piece(String nomJoueur,int posX, int posY,int deplacement) {
 		Joueur=nomJoueur;
 		x=posX;
 		y=posY;
-		AR="aller";
+		AR=1; //1 aller -1 retour
 		this.deplacement=deplacement;
 	}
 	
@@ -33,7 +33,7 @@ public class Piece {
 		
 	}
 	
-	public String getAR() {
+	public int getAR() {
 		return this.AR;
 		
 	}

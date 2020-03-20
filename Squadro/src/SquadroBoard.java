@@ -14,7 +14,7 @@ public class SquadroBoard implements IPartie2{
 	private Piece[] j1=new Piece [5] ;
 	private Piece[] j2=new Piece [5] ;
 	private HashMap<String, Integer> col = new HashMap<String, Integer>(); //Les lettres correspondant aux colonnes
-	
+	private String lastPlayer;
 	public SquadroBoard(char[][] p, Piece[] pieceJ1, Piece[] pieceJ2) {
 		plateau=p;
 		j1=pieceJ1;
@@ -31,6 +31,7 @@ public class SquadroBoard implements IPartie2{
 		this.plateau=p;
 		this.setJ1(pieceJ1);
 		this.setJ2(pieceJ2);
+		this.lastPlayer=null;
 	}
 	
 
@@ -114,6 +115,17 @@ public class SquadroBoard implements IPartie2{
 			e.printStackTrace();
 		}
 		
+		
+		afficheHorizontal.clear();
+		afficheHorizontal.add(this.lastPlayer);
+		try {
+			Files.write(fichier,afficheHorizontal,Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 	}
 
 	// ATTENTION : comment prendre en compte le fait de passer au dessus d'un autre joueur ?
@@ -143,19 +155,32 @@ public class SquadroBoard implements IPartie2{
 		return true;
 	}
 
+	
+	
+	
 	@Override
 	public String[] possibleMoves(String player) {
-		// TODO Auto-generated method stub
-		
+
 		return null;
 	}
 
+	
+	
 	@Override
 	public void play(String move, String role) {
 		// TODO Auto-generated method stub
+		int []tab = stringToMove(move);
+		
+		this.plateau[tab[2]][tab[3]]=this.plateau[tab[0]][tab[1]];
+		this.plateau[tab[0]][tab[1]]='.';
+		
+		this.lastPlayer=role;	
 		
 	}
 
+	
+	
+	
 	@Override
 	public boolean gameOver() {
 		// TODO Auto-generated method stub
