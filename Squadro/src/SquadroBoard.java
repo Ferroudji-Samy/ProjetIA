@@ -2,17 +2,27 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SquadroBoard implements IPartie2{
 	
 	private char[][] plateau = new char [7][7];
 	private Piece[] j1=new Piece [5] ;
 	private Piece[] j2=new Piece [5] ;
+	private HashMap<String, Integer> col = new HashMap<String, Integer>(); //Les lettres correspondant aux colonnes
 	
 	public SquadroBoard(char[][] p, Piece[] pieceJ1, Piece[] pieceJ2) {
 		plateau=p;
 		j1=pieceJ1;
 		j2=pieceJ2;
+		
+		col.put("A", 0);
+		col.put("B", 1);
+		col.put("C", 2);
+		col.put("D", 3);
+		col.put("E", 4);
+		col.put("F", 5);
+		col.put("G", 6);
 	}
 	
 
@@ -45,14 +55,31 @@ public class SquadroBoard implements IPartie2{
 		
 	}
 
+	// ATTENTION : comment prendre en compte le fait de passer au dessus d'un autre joueur ?
 	@Override
 	public boolean isValidMove(String move, String player) {
-		// TODO Auto-generated method stub
+		/*
 		String[] moves=possibleMoves(player);
 		for(String i : moves) {
 			if (i.compareTo(move)==0)return true;
 		}
 		return false;
+		*/
+		
+		//Peut-etre mieux de verifier le coup directement, sans avoir a creer le tableau entier des coups possibles :
+		int[] tab = stringToMove(move);
+		if(player.equals("v")) { 		//si le joueur joue verticalement
+			int valDep = j1[tab[1]].getDeplacement();
+			if(tab[0] != tab[2] || Math.abs(tab[2]-tab[0]) != valDep) { //Si la colonne change ou qu'on ne respecte pas la valeur de deplacement
+				return false;
+			}
+		} else {	//si le joueur joue horizontalement
+			int valDep = j2[tab[0]].getDeplacement();
+			if(tab[1] != tab[3]|| Math.abs(tab[3]-tab[1]) != valDep) { //Si la ligne change ou qu'on ne respecte pas la valeur de deplacement
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
@@ -83,4 +110,19 @@ public class SquadroBoard implements IPartie2{
 		return false;
 	}
 	
+	public int[] stringToMove(String move) {
+		int[] tab = new int[4];
+		
+		String s1 = move.substring(0, 1);
+		String s2 = move.substring(0, 1);
+		String s3 = move.substring(0, 1);
+		String s4 = move.substring(0, 1);
+		
+		tab[0] = col.get(s1);
+		tab[1] = Integer.parseInt(s2);
+		tab[2] = col.get(s3);
+		tab[3] = Integer.parseInt(s4);
+		
+		return tab;
+	}
 }
