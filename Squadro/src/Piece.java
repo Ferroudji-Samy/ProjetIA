@@ -11,7 +11,7 @@ public class Piece {
 		x=posX;
 		y=posY;
 		AR="aller";
-		deplacement=deplacement;
+		this.deplacement=deplacement;
 	}
 	
 	public int getDeplacement() {
