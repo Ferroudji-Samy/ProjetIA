@@ -214,8 +214,8 @@ public class SquadroBoard implements IPartie2{
 		// TODO Auto-generated method stub
 		int []tab = stringToMove(move);
 		
-		this.plateau[tab[2]][tab[3]]=this.plateau[tab[0]][tab[1]];
-		this.plateau[tab[0]][tab[1]]='.';
+		this.plateau[tab[3]][tab[2]]=this.plateau[tab[1]][tab[0]];
+		this.plateau[tab[1]][tab[0]]='.';
 		
 		this.lastPlayer=role;	
 		
@@ -270,9 +270,9 @@ public class SquadroBoard implements IPartie2{
 		String s4 = move.substring(4);
 		
 		tab[0] = col.get(s1);
-		tab[1] = Integer.parseInt(s2);
+		tab[1] = Integer.parseInt(s2)-1;
 		tab[2] = col.get(s3);
-		tab[3] = Integer.parseInt(s4);
+		tab[3] = Integer.parseInt(s4)-1;
 		
 		return tab;
 	}
