@@ -15,7 +15,7 @@ public class SquadroBoard implements IPartie2{
 	private Piece[] j2=new Piece [5] ;
 	private HashMap<String, Integer> col = new HashMap<String, Integer>(); //Les lettres correspondant aux colonnes
 	private HashMap<Integer, String> colChiffre = new HashMap<Integer, String>();
-	
+	private String lastPlayer;
 	public SquadroBoard(char[][] p, Piece[] pieceJ1, Piece[] pieceJ2) {
 		plateau=p;
 		j1=pieceJ1;
@@ -40,6 +40,7 @@ public class SquadroBoard implements IPartie2{
 		this.plateau=p;
 		this.setJ1(pieceJ1);
 		this.setJ2(pieceJ2);
+		this.lastPlayer=null;
 	}
 	
 
@@ -123,6 +124,17 @@ public class SquadroBoard implements IPartie2{
 			e.printStackTrace();
 		}
 		
+		
+		afficheHorizontal.clear();
+		afficheHorizontal.add(this.lastPlayer);
+		try {
+			Files.write(fichier,afficheHorizontal,Charset.forName("UTF-8"), StandardOpenOption.APPEND);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
 	}
 
 	// ATTENTION : comment prendre en compte le fait de passer au dessus d'un autre joueur ?
@@ -162,7 +174,7 @@ public class SquadroBoard implements IPartie2{
 				
 				int x = p.getX();
 				int d;
-				if(p.getAR().equals("aller")) {
+				if(p.getAR() == 1) {
 					d = p.getDeplacement();
 				}else {
 					d = - p.getDeplacement();
@@ -182,7 +194,7 @@ public class SquadroBoard implements IPartie2{
 				
 				int y = p.getY();
 				int d;
-				if(p.getAR().equals("aller")) {
+				if(p.getAR() == 1) {
 					d = p.getDeplacement();
 				}else {
 					d = - p.getDeplacement();
@@ -198,9 +210,18 @@ public class SquadroBoard implements IPartie2{
 	@Override
 	public void play(String move, String role) {
 		// TODO Auto-generated method stub
+		int []tab = stringToMove(move);
+		
+		this.plateau[tab[2]][tab[3]]=this.plateau[tab[0]][tab[1]];
+		this.plateau[tab[0]][tab[1]]='.';
+		
+		this.lastPlayer=role;	
 		
 	}
 
+	
+	
+	
 	@Override
 	public boolean gameOver() {
 		// TODO Auto-generated method stub
