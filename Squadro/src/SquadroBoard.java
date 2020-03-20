@@ -229,12 +229,14 @@ public class SquadroBoard implements IPartie2{
 		// TODO Auto-generated method stub
 		int count1=0;
 		int count2=0;
-		for(int i=0; i<this.plateau.length;i++) {
-			for(int j=0;i<this.plateau[i].length;i++) {
-				if(this.plateau[i][j]=='^' || this.plateau[i][j]=='v')count1++;
-				if(this.plateau[i][j]=='<' || this.plateau[i][j]=='>')count2++;
-				if(count1<3 || count2<3)return true;
-			}
+		for(int y=1;y<this.plateau[0].length;y++) {
+
+			if(this.plateau[y][0]=='<')count1++;
+			if(count1>2)return true;
+		}
+		for(int x=1;x<this.plateau[6].length;x++) {
+			if(this.plateau[6][x]=='v')count2++;
+			if(count2>2)return true;
 		}
 		return false;
 	}
