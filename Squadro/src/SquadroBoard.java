@@ -6,8 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class SquadroBoard implements IPartie2{
 	
@@ -16,9 +14,9 @@ public class SquadroBoard implements IPartie2{
 	private Piece[] j2=new Piece [5] ;
 	
 	public SquadroBoard(char[][] p, Piece[] pieceJ1, Piece[] pieceJ2) {
-		plateau=p;
-		j1=pieceJ1;
-		j2=pieceJ2;
+		this.plateau=p;
+		this.setJ1(pieceJ1);
+		this.setJ2(pieceJ2);
 	}
 	
 
@@ -51,10 +49,10 @@ public class SquadroBoard implements IPartie2{
 		
 		Path fichier = Paths.get(fileName);
 		
-		ArrayList<String> afficheVertical = new ArrayList();
-		ArrayList<String> afficheHorizontal = new ArrayList();
+		ArrayList<String> afficheVertical = new ArrayList<String>();
+		ArrayList<String> afficheHorizontal = new ArrayList<String>();
 		afficheHorizontal.add("%  ABCDEFG");
-		ArrayList<String> afficheLigne = new ArrayList();
+		ArrayList<String> afficheLigne = new ArrayList<String>();
 		int count=1;
 		
 		try {
@@ -140,6 +138,26 @@ public class SquadroBoard implements IPartie2{
 			}
 		}
 		return false;
+	}
+
+
+	public Piece[] getJ1() {
+		return j1;
+	}
+
+
+	public void setJ1(Piece[] j1) {
+		this.j1 = j1;
+	}
+
+
+	public Piece[] getJ2() {
+		return j2;
+	}
+
+
+	public void setJ2(Piece[] j2) {
+		this.j2 = j2;
 	}
 	
 }
