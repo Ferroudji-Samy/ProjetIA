@@ -220,6 +220,9 @@ public class SquadroBoard implements IPartie2{
 		int[] tab = new int[4];
 		
 		String s1 = move.substring(0, 1);
+		String s2 = move.substring(1, 2);
+		String s3 = move.substring(2, 3);
+		String s4 = move.substring(3, 4);
 		
 		tab[0] = col.get(s1);
 		tab[1] = Integer.parseInt(s2);
