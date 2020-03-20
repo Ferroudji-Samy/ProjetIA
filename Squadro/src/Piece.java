@@ -38,4 +38,7 @@ public class Piece {
 		
 	}
 	
+	public void changeDir() {
+		this.AR = -this.AR;
+	}
 }

@@ -179,9 +179,18 @@ public class SquadroBoard implements IPartie2{
 				}else {
 					d = - p.getDeplacement();
 				}
-				int sum = x+d;
+				int newX = x+d;
 				
-				String coup = colChiffre.get(i) + x + "-" + colChiffre.get(i) + sum;
+				if(newX>=7) { //si on atteint le bord droit
+					newX = 6 - (newX%7) -1;
+					//Il faudra changer la direction de la piece si on decide de jouer ce coup
+				}else if(newX<0) { //Si on rencontre un bord gauche
+					newX = -newX;
+					//Il faudra changer la direction de la piece si on decide de jouer ce coup
+				}
+				
+				
+				String coup = colChiffre.get(i) + x + "-" + colChiffre.get(i) + newX;
 				if(isValidMove(coup, player)) { //If innutile ?
 					moveList[i] = coup;
 				}else {
@@ -199,9 +208,17 @@ public class SquadroBoard implements IPartie2{
 				}else {
 					d = - p.getDeplacement();
 				}
-				int sum = y+d;
+				int newY = y+d;
 				
-				String coup = y + i + "-" + sum + i;
+				if(newY>=7) { //si on atteint le bord haut
+					newY = 6 - (newY%7) -1;
+					//Il faudra changer la direction de la piece si on decide de jouer ce coup
+				}else if(newY<0) { //Si on rencontre un bord bas
+					newY = -newY;
+					//Il faudra changer la direction de la piece si on decide de jouer ce coup
+				}
+				
+				String coup = y + i + "-" + newY + i;
 			}
 		}
 		return null;
