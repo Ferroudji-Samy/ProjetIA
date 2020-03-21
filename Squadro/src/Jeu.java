@@ -1,4 +1,3 @@
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Jeu {
@@ -11,12 +10,13 @@ public class Jeu {
 		
 		SquadroBoard plateau= new SquadroBoard(init,null, null);
 		plateau.setFromFile(filename);
+		
+		String move="C7-C3";
+		plateau.play(move, "horizontal");
+		
 		plateau.saveToFile("test.txt");
-		int []tab=plateau.stringToMove("F2-B6");
-		for(int i : tab) {
-			System.out.println(tab[i]);
-		}
-	}
-
+		
+		System.out.print(plateau.gameOver());
+		
 		}
 }

@@ -14,6 +14,11 @@ public class Piece {
 		this.deplacement=deplacement;
 	}
 	
+	
+	public void setAR(int AR) {
+		this.AR=AR;
+	}
+	
 	public int getDeplacement() {
 		return this.deplacement;
 	}
@@ -40,5 +45,17 @@ public class Piece {
 	
 	public void changeDir() {
 		this.AR = -this.AR;
+	}
+
+
+	public void setX(int i) {
+		this.x=i;
+		
+	}
+
+
+	public void setY(int i) {
+		this.y=i;
+		
 	}
 }

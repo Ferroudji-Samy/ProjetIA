@@ -11,11 +11,16 @@ import java.util.HashMap;
 public class SquadroBoard implements IPartie2{
 	
 	private char[][] plateau = new char [7][7];
+	
 	private Piece[] j1=new Piece [5] ;
 	private Piece[] j2=new Piece [5] ;
+	
 	private HashMap<String, Integer> col = new HashMap<String, Integer>(); //Les lettres correspondant aux colonnes
 	private HashMap<Integer, String> colChiffre = new HashMap<Integer, String>();
+	
 	private String lastPlayer;
+	
+	
 	public SquadroBoard(char[][] p, Piece[] pieceJ1, Piece[] pieceJ2) {
 		this.plateau=p;
 		this.j1=pieceJ1;
@@ -38,16 +43,13 @@ public class SquadroBoard implements IPartie2{
 		colChiffre.put(6, "G");
 		
 		this.plateau=p;
-		this.setJ1(pieceJ1);
-		this.setJ2(pieceJ2);
+
 		this.lastPlayer=null;
 	}
 	
 
 	@Override
 	public void setFromFile(String fileName) {
-		// TODO Auto-generated method stub
-
 		int y=0;
 		try {
 			for (String ligne : Files.readAllLines(Paths.get(fileName))) {
@@ -63,14 +65,12 @@ public class SquadroBoard implements IPartie2{
 				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void saveToFile(String fileName) {
-		// TODO Auto-generated method stub
 		
 		Path fichier = Paths.get(fileName);
 		
@@ -82,7 +82,6 @@ public class SquadroBoard implements IPartie2{
 		try {
 			Files.write(fichier,afficheHorizontal,Charset.forName("UTF-8"), StandardOpenOption.APPEND);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 
@@ -93,7 +92,6 @@ public class SquadroBoard implements IPartie2{
 			try {
 				Files.write(fichier,afficheLigne,Charset.forName("UTF-8"), StandardOpenOption.APPEND);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			afficheLigne.clear();
@@ -105,7 +103,6 @@ public class SquadroBoard implements IPartie2{
 		try {
 			Files.write(fichier,afficheHorizontal,Charset.forName("UTF-8"), StandardOpenOption.APPEND);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -115,7 +112,6 @@ public class SquadroBoard implements IPartie2{
 		try {
 			Files.write(fichier,afficheHorizontal,Charset.forName("UTF-8"), StandardOpenOption.APPEND);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -125,14 +121,16 @@ public class SquadroBoard implements IPartie2{
 	// ATTENTION : comment prendre en compte le fait de passer au dessus d'un autre joueur ?
 	@Override
 	public boolean isValidMove(String move, String player) {
-		/*
+		//TODO
 		String[] moves=possibleMoves(player);
 		for(String i : moves) {
 			if (i.compareTo(move)==0)return true;
 		}
 		return false;
-		*/
 		
+		/*
+		 * je le met en com vu que pour l'instant ca marche pas vraiment
+		 * 
 		//Peut-etre mieux de verifier le coup directement, sans avoir a creer le tableau entier des coups possibles :
 		int[] tab = stringToMove(move);
 		if(player.equals("vertical")) { 		//si le joueur joue verticalement
@@ -147,63 +145,63 @@ public class SquadroBoard implements IPartie2{
 			}
 		}
 		return true;
+		**/
 	}
 
 	//Il faudra prendre en compte les allers retours pendant le coup et les sauts par dessus des adversaires
 	@Override
 	public String[] possibleMoves(String player) {
+		//TODO
 		String[] moveList = new String[5]; //Un coup par piece
 		if(player.equals("vertical")) {	//si le joueur joue verticalement
 			for(int i=0; i< j1.length; i++) {	//On rajoute le coups possible pour chaque piece
 				Piece p = j1[i];
 				
 				int x = p.getX();
-				int d;
-				if(p.getAR() == 1) {
-					d = p.getDeplacement();
-				}else {
-					d = - p.getDeplacement();
-				}
+				int d= p.getDeplacement() * p.getAR();
 				int newX = x+d;
 				
+				while(this.plateau[p.getY()][newX]!='.') {
+					newX+=p.getAR();
+				}
+				
 				if(newX>=7) { //si on atteint le bord droit
-					newX = 6 - (newX%7) -1;
+					newX = 6;
+					p.setAR(-1);
 					//Il faudra changer la direction de la piece si on decide de jouer ce coup
 				}else if(newX<0) { //Si on rencontre un bord gauche
-					newX = -newX;
+					newX = 0;
 					//Il faudra changer la direction de la piece si on decide de jouer ce coup
 				}
 				
 				
 				String coup = colChiffre.get(i) + x + "-" + colChiffre.get(i) + newX;
-				if(isValidMove(coup, player)) { //If innutile ?
-					moveList[i] = coup;
-				}else {
-					moveList[i] = null;
-				}
+				moveList[i] = coup;
+
 			}
 		} else {	//si le joueur joue horizontalement
 			for(int i=0; i<j2.length; i++) {
 				Piece p = j2[i];
 				
 				int y = p.getY();
-				int d;
-				if(p.getAR() == 1) {
-					d = p.getDeplacement();
-				}else {
-					d = - p.getDeplacement();
-				}
+				int d=p.getAR()*p.getDeplacement();
 				int newY = y+d;
 				
+				while(this.plateau[newY][p.getAR()]!='.') {
+					newY+=p.getAR();
+				}
+				
+				
 				if(newY>=7) { //si on atteint le bord haut
-					newY = 6 - (newY%7) -1;
+					newY = 6;
 					//Il faudra changer la direction de la piece si on decide de jouer ce coup
 				}else if(newY<0) { //Si on rencontre un bord bas
-					newY = -newY;
+					newY = 0;
 					//Il faudra changer la direction de la piece si on decide de jouer ce coup
 				}
 				
-				String coup = y + i + "-" + newY + i;
+				String coup = colChiffre.get(y) + i + "-" + colChiffre.get(newY) + i;
+				moveList[i] = coup;
 			}
 		}
 		return null;
@@ -211,12 +209,50 @@ public class SquadroBoard implements IPartie2{
 
 	@Override
 	public void play(String move, String role) {
-		// TODO Auto-generated method stub
 		int []tab = stringToMove(move);
 		
 		this.plateau[tab[3]][tab[2]]=this.plateau[tab[1]][tab[0]];
 		this.plateau[tab[1]][tab[0]]='.';
-		
+		if(role.equals("vertical")) {
+			for(Piece i : this.j1) {
+				int c=0;
+				if(i.getX()==tab[0] && i.getY()==tab[1]) {
+					this.j1[c].setX(tab[2]);
+					this.j1[c].setY(tab[3]);
+				}
+				c++;
+			}
+			for(Piece i : j2) {
+				int c=0;
+				if(i.getX()>tab[0] && i.getX()<tab[2] && i.getY()==tab[1]) {
+					if (j2[c].getAR()==1)j2[c].setY(0);
+					else j2[c].setY(6);
+				}
+				c++;
+			}
+			
+		}
+		else {
+			for(Piece i : this.j2) {
+				int c=0;
+				if(i.getX()==tab[0] && i.getY()==tab[1]) {
+					this.j2[c].setX(tab[2]);
+					this.j2[c].setY(tab[3]);
+				}
+				c++;
+			}
+			
+			for(Piece i : j1) {
+				int c=0;
+				if(i.getY()>tab[1] && i.getY()<tab[3] && i.getX()==tab[0]) {
+					if (j1[c].getAR()==1)j1[c].setX(0);
+					else j2[c].setX(6);
+				}
+				c++;
+			}
+			
+			
+		}
 		this.lastPlayer=role;	
 		
 	}
@@ -226,7 +262,6 @@ public class SquadroBoard implements IPartie2{
 	
 	@Override
 	public boolean gameOver() {
-		// TODO Auto-generated method stub
 		int count1=0;
 		int count2=0;
 		for(int y=1;y<this.plateau[0].length;y++) {
