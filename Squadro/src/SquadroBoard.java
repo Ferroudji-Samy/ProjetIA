@@ -161,7 +161,7 @@ public class SquadroBoard implements IPartie2{
 				int d= p.getDeplacement() * p.getAR();
 				int newY = y-d;
 				
-				while(Character.compare(this.plateau[newY][p.getX()],'.')!=0) {
+				while(newY<7 && Character.compare(this.plateau[newY][p.getX()],'.')!=0) {
 					newY-=p.getAR();
 				}
 				
@@ -186,7 +186,7 @@ public class SquadroBoard implements IPartie2{
 				int d=p.getAR()*p.getDeplacement();
 				int newX = x+d;
 				
-				while(this.plateau[p.getY()][newX]!='.') {
+				while(newX>=0 && Character.compare(this.plateau[p.getY()][newX],'.')!=0) {
 					newX+=p.getAR();
 				}
 				
@@ -209,9 +209,11 @@ public class SquadroBoard implements IPartie2{
 	@Override
 	public void play(String move, String role) {
 		int []tab = stringToMove(move);
-		
+		char stock;
+		stock=this.plateau[tab[3]][tab[2]];
 		this.plateau[tab[3]][tab[2]]=this.plateau[tab[1]][tab[0]];
-		this.plateau[tab[1]][tab[0]]='.';
+		this.plateau[tab[1]][tab[0]]=stock;
+		
 		int c=0;
 		if(role.equals("vertical")) {
 			
@@ -220,11 +222,15 @@ public class SquadroBoard implements IPartie2{
 				if(i.getX()==tab[0] && i.getY()==tab[1]) {
 					this.j1[c].setX(tab[2]);
 					this.j1[c].setY(tab[3]);
-					if(tab[3]==0) {
+					if(tab[3]==0 ) {
 						this.j1[c].setAR(-1);
 						this.plateau[tab[3]][tab[2]]='v';
 						this.j1[c].inverseDeplacement();
 					}
+					if(tab[3]==6 && this.j1[c].getAR()==-1 ) {
+						this.j1[c].inverseDeplacement();
+					}
+					
 					int c2=0;
 					for(Piece j : j2) {
 						if(j.getX()>tab[0] && j.getX()<tab[2] && j.getY()==tab[1]) {
@@ -248,6 +254,9 @@ public class SquadroBoard implements IPartie2{
 					if(tab[3]==6) {
 						this.j2[c].setAR(-1);
 						this.plateau[tab[3]][tab[2]]='<';
+					}
+					if(tab[4]==0 && this.j2[c].getAR()==-1 ) {
+						this.j2[c].inverseDeplacement();
 					}
 					int c2=0;
 					for(Piece j : j1) {
