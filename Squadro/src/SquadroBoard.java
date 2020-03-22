@@ -232,10 +232,20 @@ public class SquadroBoard implements IPartie2{
 					}
 					
 					int c2=0;
+					int min=Math.min(tab[1],tab[3]);
+					int max=Math.max(tab[1],tab[3]);
 					for(Piece j : j2) {
-						if(j.getX()>tab[0] && j.getX()<tab[2] && j.getY()==tab[1]) {
-							if (j2[c2].getAR()==1)j2[c2].setY(0);
-							else j2[c2].setY(6);
+						if(j.getY()>min && j.getY()<max && j.getX()==tab[0]) {
+							if (j2[c2].getAR()==1) {
+								this.plateau[j.getY()][0]='>';
+								this.plateau[j.getY()][j.getX()]='.';
+								j2[c2].setX(0);
+							}
+							else {
+								this.plateau[j.getY()][6]='<';
+								this.plateau[j.getY()][j.getX()]='.';
+								j2[c2].setX(6);
+							}
 						}
 						c2++;
 					}
@@ -260,10 +270,20 @@ public class SquadroBoard implements IPartie2{
 						this.j2[c].inverseDeplacement();
 					}
 					int c2=0;
+					int min=Math.min(tab[0],tab[2]);
+					int max=Math.max(tab[0],tab[2]);
 					for(Piece j : j1) {
-						if(j.getY()>tab[1] && j.getY()<tab[3] && j.getX()==tab[0]) {
-							if (j1[c2].getAR()==1)j1[c2].setX(0);
-							else j2[c2].setX(6);
+						if(j.getX()>min && j.getX()<max && j.getY()==tab[1]) {
+							if (j1[c2].getAR()==1) {
+								this.plateau[6][j.getX()]='^';
+								this.plateau[j.getY()][j.getX()]='.';
+								j1[c2].setY(6);
+							}
+							else {
+								this.plateau[0][j.getX()]='v';
+								this.plateau[j.getY()][j.getX()]='.';
+								j1[c2].setY(0);
+							}
 						}
 						c2++;
 					}
