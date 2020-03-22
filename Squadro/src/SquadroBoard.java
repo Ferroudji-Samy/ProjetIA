@@ -157,25 +157,24 @@ public class SquadroBoard implements IPartie2{
 			for(int i=0; i< j1.length; i++) {	//On rajoute le coups possible pour chaque piece
 				Piece p = j1[i];
 				
-				int x = p.getX();
+				int y = p.getY();
 				int d= p.getDeplacement() * p.getAR();
-				int newX = x+d;
+				int newY = y-d;
 				
-				while(this.plateau[p.getY()][newX]!='.') {
-					newX+=p.getAR();
+				while(Character.compare(this.plateau[newY][p.getX()],'.')!=0) {
+					newY-=p.getAR();
 				}
 				
-				if(newX>=7) { //si on atteint le bord droit
-					newX = 6;
-					p.setAR(-1);
+				if(newY>=7) { //si on atteint le bord droit
+					newY = 6;
 					//Il faudra changer la direction de la piece si on decide de jouer ce coup
-				}else if(newX<0) { //Si on rencontre un bord gauche
-					newX = 0;
+				}else if(newY<0) { //Si on rencontre un bord gauche
+					newY = 0;
 					//Il faudra changer la direction de la piece si on decide de jouer ce coup
 				}
 				
 				
-				String coup = colChiffre.get(i) + x + "-" + colChiffre.get(i) + newX;
+				String coup = colChiffre.get(p.getX()) + y + "-" + colChiffre.get(p.getX()) + newY;
 				moveList[i] = coup;
 
 			}
@@ -183,28 +182,28 @@ public class SquadroBoard implements IPartie2{
 			for(int i=0; i<j2.length; i++) {
 				Piece p = j2[i];
 				
-				int y = p.getY();
+				int x = p.getX();
 				int d=p.getAR()*p.getDeplacement();
-				int newY = y+d;
+				int newX = x+d;
 				
-				while(this.plateau[newY][p.getAR()]!='.') {
-					newY+=p.getAR();
+				while(this.plateau[p.getY()][newX]!='.') {
+					newX+=p.getAR();
 				}
 				
 				
-				if(newY>=7) { //si on atteint le bord haut
-					newY = 6;
+				if(newX>=7) { //si on atteint le bord haut
+					newX = 6;
 					//Il faudra changer la direction de la piece si on decide de jouer ce coup
-				}else if(newY<0) { //Si on rencontre un bord bas
-					newY = 0;
+				}else if(newX<0) { //Si on rencontre un bord bas
+					newX = 0;
 					//Il faudra changer la direction de la piece si on decide de jouer ce coup
 				}
 				
-				String coup = colChiffre.get(y) + i + "-" + colChiffre.get(newY) + i;
+				String coup = colChiffre.get(x) + p.getY() + "-" + colChiffre.get(newX) + p.getY();
 				moveList[i] = coup;
 			}
 		}
-		return null;
+		return moveList;
 	}
 
 	@Override
@@ -214,11 +213,14 @@ public class SquadroBoard implements IPartie2{
 		this.plateau[tab[3]][tab[2]]=this.plateau[tab[1]][tab[0]];
 		this.plateau[tab[1]][tab[0]]='.';
 		if(role.equals("vertical")) {
+			
+			
 			for(Piece i : this.j1) {
 				int c=0;
 				if(i.getX()==tab[0] && i.getY()==tab[1]) {
 					this.j1[c].setX(tab[2]);
 					this.j1[c].setY(tab[3]);
+					if(tab[3]==6)this.j1[c].setAR(-1);
 				}
 				c++;
 			}
@@ -238,6 +240,7 @@ public class SquadroBoard implements IPartie2{
 				if(i.getX()==tab[0] && i.getY()==tab[1]) {
 					this.j2[c].setX(tab[2]);
 					this.j2[c].setY(tab[3]);
+					if(tab[3]==6)this.j1[c].setAR(-1);
 				}
 				c++;
 			}
@@ -305,9 +308,9 @@ public class SquadroBoard implements IPartie2{
 		String s4 = move.substring(4);
 		
 		tab[0] = col.get(s1);
-		tab[1] = Integer.parseInt(s2)-1;
+		tab[1] = Integer.parseInt(s2);
 		tab[2] = col.get(s3);
-		tab[3] = Integer.parseInt(s4)-1;
+		tab[3] = Integer.parseInt(s4);
 		
 		return tab;
 	}
