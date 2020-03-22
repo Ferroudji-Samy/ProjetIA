@@ -44,7 +44,7 @@ public class SquadroBoard implements IPartie2{
 		
 		this.plateau=p;
 
-		this.lastPlayer=null;
+		this.setLastPlayer(null);
 	}
 	
 
@@ -108,7 +108,7 @@ public class SquadroBoard implements IPartie2{
 		
 		
 		afficheHorizontal.clear();
-		afficheHorizontal.add(this.lastPlayer);
+		afficheHorizontal.add(this.getLastPlayer());
 		try {
 			Files.write(fichier,afficheHorizontal,Charset.forName("UTF-8"), StandardOpenOption.APPEND);
 		} catch (IOException e) {
@@ -293,7 +293,7 @@ public class SquadroBoard implements IPartie2{
 			}
 						
 		}
-		this.lastPlayer=role;	
+		this.setLastPlayer(role);	
 		
 	}
 
@@ -350,5 +350,15 @@ public class SquadroBoard implements IPartie2{
 		tab[3] = Integer.parseInt(s4);
 		
 		return tab;
+	}
+
+
+	public String getLastPlayer() {
+		return lastPlayer;
+	}
+
+
+	public void setLastPlayer(String lastPlayer) {
+		this.lastPlayer = lastPlayer;
 	}
 }

@@ -1,4 +1,5 @@
 import java.nio.file.Paths;
+import java.util.Random;
 
 public class Jeu {
 	
@@ -40,109 +41,27 @@ public class Jeu {
 
 		
 		SquadroBoard plateau= initialisation();
-		String[] test=plateau.possibleMoves("vertical");
+		plateau.setLastPlayer("vertical");
+		String[] cp;
 		
-		for(String i : test) {
-			System.out.print(i+"\n");
-			plateau.play(i,"vertical");
-			plateau.saveToFile("test.txt");
-		}
+		int rand ;
 		
 		
-		test=plateau.possibleMoves("vertical");
-		System.out.print("\n");
-		for(String i : test) {
-			System.out.print(i+"\n");
-			plateau.play(i,"vertical");
-			plateau.saveToFile("test.txt");
+		while(!plateau.gameOver()) {
+			if(plateau.getLastPlayer().equals("vertical")) {
+				cp=plateau.possibleMoves("horizontal");
+				rand = (int)(Math.random() * cp.length) + 0;
+				plateau.play(cp[rand],"horizontal");
+				plateau.saveToFile("test.txt");
+			}
+			else {
+				cp=plateau.possibleMoves("vertical");
+				rand = (int)(Math.random() * cp.length) + 0;
+				plateau.play(cp[rand],"vertical");
+				plateau.saveToFile("test.txt");
+			}
 		}
 		
-		test=plateau.possibleMoves("vertical");
-		System.out.print("\n");
-		for(String i : test) {
-			System.out.print(i+"\n");
-			plateau.play(i,"vertical");
-			plateau.saveToFile("test.txt");
-		}
-		
-		test=plateau.possibleMoves("vertical");
-		System.out.print("\n");
-		for(String i : test) {
-			System.out.print(i+"\n");
-			plateau.play(i,"vertical");
-			plateau.saveToFile("test.txt");
-		}
-
-		test=plateau.possibleMoves("vertical");
-		System.out.print("\n");
-		for(String i : test) {
-			System.out.print(i+"\n");
-			plateau.play(i,"vertical");
-			plateau.saveToFile("test.txt");
-		}
-		
-		test=plateau.possibleMoves("horizontal");
-		System.out.print("\n");
-		for(String i : test) {
-			System.out.print(i+"\n");
-			plateau.play(i,"horizontal");
-			plateau.saveToFile("test.txt");
-		}
-		test=plateau.possibleMoves("horizontal");
-		System.out.print("\n");
-		for(String i : test) {
-			System.out.print(i+"\n");
-			plateau.play(i,"horizontal");
-			plateau.saveToFile("test.txt");
-		}
-		test=plateau.possibleMoves("horizontal");
-		System.out.print("\n");
-		for(String i : test) {
-			System.out.print(i+"\n");
-			plateau.play(i,"horizontal");
-			plateau.saveToFile("test.txt");
-		}
-		test=plateau.possibleMoves("horizontal");
-		System.out.print("\n");
-		for(String i : test) {
-			System.out.print(i+"\n");
-			plateau.play(i,"horizontal");
-			plateau.saveToFile("test.txt");
-		}
-		test=plateau.possibleMoves("horizontal");
-		System.out.print("\n");
-		for(String i : test) {
-			System.out.print(i+"\n");
-			plateau.play(i,"horizontal");
-			plateau.saveToFile("test.txt");
-		}
-		test=plateau.possibleMoves("horizontal");
-		System.out.print("\n");
-		for(String i : test) {
-			System.out.print(i+"\n");
-			plateau.play(i,"horizontal");
-			plateau.saveToFile("test.txt");
-		}
-		test=plateau.possibleMoves("horizontal");
-		System.out.print("\n");
-		for(String i : test) {
-			System.out.print(i+"\n");
-			plateau.play(i,"horizontal");
-			plateau.saveToFile("test.txt");
-		}
-		test=plateau.possibleMoves("horizontal");
-		System.out.print("\n");
-		for(String i : test) {
-			System.out.print(i+"\n");
-			plateau.play(i,"horizontal");
-			plateau.saveToFile("test.txt");
-		}
-
-
-
-
-
-
 		
 		System.out.print("fin test");
 		
