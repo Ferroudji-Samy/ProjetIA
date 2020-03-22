@@ -161,7 +161,7 @@ public class SquadroBoard implements IPartie2{
 				int d= p.getDeplacement() * p.getAR();
 				int newY = y-d;
 				
-				while(newY<7 && Character.compare(this.plateau[newY][p.getX()],'.')!=0) {
+				while(newY<7 && newY>=0 && Character.compare(this.plateau[newY][p.getX()],'.')!=0) {
 					newY-=p.getAR();
 				}
 				
@@ -186,7 +186,7 @@ public class SquadroBoard implements IPartie2{
 				int d=p.getAR()*p.getDeplacement();
 				int newX = x+d;
 				
-				while(newX>=0 && Character.compare(this.plateau[p.getY()][newX],'.')!=0) {
+				while(newX<7 && newX>=0 && Character.compare(this.plateau[p.getY()][newX],'.')!=0) {
 					newX+=p.getAR();
 				}
 				
@@ -251,11 +251,12 @@ public class SquadroBoard implements IPartie2{
 				if(i.getX()==tab[0] && i.getY()==tab[1]) {
 					this.j2[c].setX(tab[2]);
 					this.j2[c].setY(tab[3]);
-					if(tab[3]==6) {
+					if(tab[2]==6) {
 						this.j2[c].setAR(-1);
 						this.plateau[tab[3]][tab[2]]='<';
+						this.j2[c].inverseDeplacement();
 					}
-					if(tab[4]==0 && this.j2[c].getAR()==-1 ) {
+					if(tab[3]==0 && this.j2[c].getAR()==-1 ) {
 						this.j2[c].inverseDeplacement();
 					}
 					int c2=0;

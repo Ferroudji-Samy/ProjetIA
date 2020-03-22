@@ -80,54 +80,68 @@ public class Jeu {
 			plateau.play(i,"vertical");
 			plateau.saveToFile("test.txt");
 		}
-
-		test=plateau.possibleMoves("vertical");
+		
+		test=plateau.possibleMoves("horizontal");
 		System.out.print("\n");
 		for(String i : test) {
 			System.out.print(i+"\n");
-			plateau.play(i,"vertical");
+			plateau.play(i,"horizontal");
 			plateau.saveToFile("test.txt");
 		}
-
-		test=plateau.possibleMoves("vertical");
+		test=plateau.possibleMoves("horizontal");
 		System.out.print("\n");
 		for(String i : test) {
 			System.out.print(i+"\n");
-			plateau.play(i,"vertical");
+			plateau.play(i,"horizontal");
 			plateau.saveToFile("test.txt");
 		}
-
-		test=plateau.possibleMoves("vertical");
+		test=plateau.possibleMoves("horizontal");
 		System.out.print("\n");
 		for(String i : test) {
 			System.out.print(i+"\n");
-			plateau.play(i,"vertical");
+			plateau.play(i,"horizontal");
 			plateau.saveToFile("test.txt");
 		}
-
-		test=plateau.possibleMoves("vertical");
+		test=plateau.possibleMoves("horizontal");
 		System.out.print("\n");
 		for(String i : test) {
 			System.out.print(i+"\n");
-			plateau.play(i,"vertical");
+			plateau.play(i,"horizontal");
 			plateau.saveToFile("test.txt");
 		}
-
-		test=plateau.possibleMoves("vertical");
+		test=plateau.possibleMoves("horizontal");
 		System.out.print("\n");
 		for(String i : test) {
 			System.out.print(i+"\n");
-			plateau.play(i,"vertical");
+			plateau.play(i,"horizontal");
 			plateau.saveToFile("test.txt");
 		}
-
-		test=plateau.possibleMoves("vertical");
+		test=plateau.possibleMoves("horizontal");
 		System.out.print("\n");
 		for(String i : test) {
 			System.out.print(i+"\n");
-			plateau.play(i,"vertical");
+			plateau.play(i,"horizontal");
 			plateau.saveToFile("test.txt");
 		}
+		test=plateau.possibleMoves("horizontal");
+		System.out.print("\n");
+		for(String i : test) {
+			System.out.print(i+"\n");
+			plateau.play(i,"horizontal");
+			plateau.saveToFile("test.txt");
+		}
+		test=plateau.possibleMoves("horizontal");
+		System.out.print("\n");
+		for(String i : test) {
+			System.out.print(i+"\n");
+			plateau.play(i,"horizontal");
+			plateau.saveToFile("test.txt");
+		}
+
+
+
+
+
 
 		
 		System.out.print("fin test");
