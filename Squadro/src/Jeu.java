@@ -40,22 +40,96 @@ public class Jeu {
 
 		
 		SquadroBoard plateau= initialisation();
-		String[] test=plateau.possibleMoves("horizontal");
+		String[] test=plateau.possibleMoves("vertical");
 		
 		for(String i : test) {
-			plateau.play(i,"horizontal");
+			System.out.print(i+"\n");
+			plateau.play(i,"vertical");
 			plateau.saveToFile("test.txt");
 		}
 		
 		
 		test=plateau.possibleMoves("vertical");
-		
+		System.out.print("\n");
 		for(String i : test) {
+			System.out.print(i+"\n");
 			plateau.play(i,"vertical");
 			plateau.saveToFile("test.txt");
 		}
 		
-		plateau.saveToFile("test.txt");
+		test=plateau.possibleMoves("vertical");
+		System.out.print("\n");
+		for(String i : test) {
+			System.out.print(i+"\n");
+			plateau.play(i,"vertical");
+			plateau.saveToFile("test.txt");
+		}
+		
+		test=plateau.possibleMoves("vertical");
+		System.out.print("\n");
+		for(String i : test) {
+			System.out.print(i+"\n");
+			plateau.play(i,"vertical");
+			plateau.saveToFile("test.txt");
+		}
+
+		test=plateau.possibleMoves("vertical");
+		System.out.print("\n");
+		for(String i : test) {
+			System.out.print(i+"\n");
+			plateau.play(i,"vertical");
+			plateau.saveToFile("test.txt");
+		}
+
+		test=plateau.possibleMoves("vertical");
+		System.out.print("\n");
+		for(String i : test) {
+			System.out.print(i+"\n");
+			plateau.play(i,"vertical");
+			plateau.saveToFile("test.txt");
+		}
+
+		test=plateau.possibleMoves("vertical");
+		System.out.print("\n");
+		for(String i : test) {
+			System.out.print(i+"\n");
+			plateau.play(i,"vertical");
+			plateau.saveToFile("test.txt");
+		}
+
+		test=plateau.possibleMoves("vertical");
+		System.out.print("\n");
+		for(String i : test) {
+			System.out.print(i+"\n");
+			plateau.play(i,"vertical");
+			plateau.saveToFile("test.txt");
+		}
+
+		test=plateau.possibleMoves("vertical");
+		System.out.print("\n");
+		for(String i : test) {
+			System.out.print(i+"\n");
+			plateau.play(i,"vertical");
+			plateau.saveToFile("test.txt");
+		}
+
+		test=plateau.possibleMoves("vertical");
+		System.out.print("\n");
+		for(String i : test) {
+			System.out.print(i+"\n");
+			plateau.play(i,"vertical");
+			plateau.saveToFile("test.txt");
+		}
+
+		test=plateau.possibleMoves("vertical");
+		System.out.print("\n");
+		for(String i : test) {
+			System.out.print(i+"\n");
+			plateau.play(i,"vertical");
+			plateau.saveToFile("test.txt");
+		}
+
+		
 		System.out.print("fin test");
 		
 		}

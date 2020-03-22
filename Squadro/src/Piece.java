@@ -58,4 +58,15 @@ public class Piece {
 		this.y=i;
 		
 	}
+
+
+	public void inverseDeplacement() {
+		if(this.AR==-1) {
+			this.deplacement=0;
+		}
+		else {
+			this.deplacement=4-this.deplacement;
+		}
+		
+	}
 }

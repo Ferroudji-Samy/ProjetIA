@@ -212,49 +212,56 @@ public class SquadroBoard implements IPartie2{
 		
 		this.plateau[tab[3]][tab[2]]=this.plateau[tab[1]][tab[0]];
 		this.plateau[tab[1]][tab[0]]='.';
+		int c=0;
 		if(role.equals("vertical")) {
 			
-			
 			for(Piece i : this.j1) {
-				int c=0;
+
 				if(i.getX()==tab[0] && i.getY()==tab[1]) {
 					this.j1[c].setX(tab[2]);
 					this.j1[c].setY(tab[3]);
-					if(tab[3]==6)this.j1[c].setAR(-1);
+					if(tab[3]==0) {
+						this.j1[c].setAR(-1);
+						this.plateau[tab[3]][tab[2]]='v';
+						this.j1[c].inverseDeplacement();
+					}
+					int c2=0;
+					for(Piece j : j2) {
+						if(j.getX()>tab[0] && j.getX()<tab[2] && j.getY()==tab[1]) {
+							if (j2[c2].getAR()==1)j2[c2].setY(0);
+							else j2[c2].setY(6);
+						}
+						c2++;
+					}
+	
 				}
 				c++;
 			}
-			for(Piece i : j2) {
-				int c=0;
-				if(i.getX()>tab[0] && i.getX()<tab[2] && i.getY()==tab[1]) {
-					if (j2[c].getAR()==1)j2[c].setY(0);
-					else j2[c].setY(6);
-				}
-				c++;
-			}
+
 			
 		}
 		else {
 			for(Piece i : this.j2) {
-				int c=0;
 				if(i.getX()==tab[0] && i.getY()==tab[1]) {
 					this.j2[c].setX(tab[2]);
 					this.j2[c].setY(tab[3]);
-					if(tab[3]==6)this.j1[c].setAR(-1);
+					if(tab[3]==6) {
+						this.j2[c].setAR(-1);
+						this.plateau[tab[3]][tab[2]]='<';
+					}
+					int c2=0;
+					for(Piece j : j1) {
+						if(j.getY()>tab[1] && j.getY()<tab[3] && j.getX()==tab[0]) {
+							if (j1[c2].getAR()==1)j1[c2].setX(0);
+							else j2[c2].setX(6);
+						}
+						c2++;
+					}
+				
 				}
 				c++;
 			}
-			
-			for(Piece i : j1) {
-				int c=0;
-				if(i.getY()>tab[1] && i.getY()<tab[3] && i.getX()==tab[0]) {
-					if (j1[c].getAR()==1)j1[c].setX(0);
-					else j2[c].setX(6);
-				}
-				c++;
-			}
-			
-			
+						
 		}
 		this.lastPlayer=role;	
 		
