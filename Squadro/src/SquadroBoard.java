@@ -44,7 +44,7 @@ public class SquadroBoard implements IPartie2{
 		
 		this.plateau=p;
 
-		this.lastPlayer=null;
+		this.setLastPlayer(null);
 	}
 	
 
@@ -108,7 +108,7 @@ public class SquadroBoard implements IPartie2{
 		
 		
 		afficheHorizontal.clear();
-		afficheHorizontal.add(this.lastPlayer);
+		afficheHorizontal.add(this.getLastPlayer());
 		try {
 			Files.write(fichier,afficheHorizontal,Charset.forName("UTF-8"), StandardOpenOption.APPEND);
 		} catch (IOException e) {
@@ -152,58 +152,70 @@ public class SquadroBoard implements IPartie2{
 	@Override
 	public String[] possibleMoves(String player) {
 		//TODO
-		String[] moveList = new String[5]; //Un coup par piece
+		ArrayList<String> moveArray=new ArrayList<String>();
 		if(player.equals("vertical")) {	//si le joueur joue verticalement
 			for(int i=0; i< j1.length; i++) {	//On rajoute le coups possible pour chaque piece
-				Piece p = j1[i];
-				
-				int y = p.getY();
-				int d= p.getDeplacement() * p.getAR();
-				int newY = y-d;
-				
-				while(newY<7 && newY>=0 && Character.compare(this.plateau[newY][p.getX()],'.')!=0) {
-					newY-=p.getAR();
+				if(j1[i].isInGame()) {	
+					Piece p = j1[i];
+					
+					int y = p.getY();
+					int d= p.getDeplacement() * p.getAR();
+					int newY = y-d;
+					
+					while(newY<7 && newY>=0 && Character.compare(this.plateau[newY][p.getX()],'.')!=0) {
+						newY-=p.getAR();
+					}
+					
+					if(newY>=7) { //si on atteint le bord droit
+						newY = 6;
+						//Il faudra changer la direction de la piece si on decide de jouer ce coup
+					}else if(newY<0) { //Si on rencontre un bord gauche
+						newY = 0;
+						//Il faudra changer la direction de la piece si on decide de jouer ce coup
+					}
+					
+					
+					String coup = colChiffre.get(p.getX()) + y + "-" + colChiffre.get(p.getX()) + newY;
+					moveArray.add(coup);
 				}
-				
-				if(newY>=7) { //si on atteint le bord droit
-					newY = 6;
-					//Il faudra changer la direction de la piece si on decide de jouer ce coup
-				}else if(newY<0) { //Si on rencontre un bord gauche
-					newY = 0;
-					//Il faudra changer la direction de la piece si on decide de jouer ce coup
-				}
-				
-				
-				String coup = colChiffre.get(p.getX()) + y + "-" + colChiffre.get(p.getX()) + newY;
-				moveList[i] = coup;
-
 			}
-		} else {	//si le joueur joue horizontalement
+		} 
+		else {	//si le joueur joue horizontalement
 			for(int i=0; i<j2.length; i++) {
-				Piece p = j2[i];
-				
-				int x = p.getX();
-				int d=p.getAR()*p.getDeplacement();
-				int newX = x+d;
-				
-				while(newX<7 && newX>=0 && Character.compare(this.plateau[p.getY()][newX],'.')!=0) {
-					newX+=p.getAR();
-				}
-				
-				
-				if(newX>=7) { //si on atteint le bord haut
-					newX = 6;
-					//Il faudra changer la direction de la piece si on decide de jouer ce coup
-				}else if(newX<0) { //Si on rencontre un bord bas
-					newX = 0;
-					//Il faudra changer la direction de la piece si on decide de jouer ce coup
-				}
-				
-				String coup = colChiffre.get(x) + p.getY() + "-" + colChiffre.get(newX) + p.getY();
-				moveList[i] = coup;
+				if(j2[i].isInGame()) {	
+					Piece p = j2[i];
+					
+					int x = p.getX();
+					int d=p.getAR()*p.getDeplacement();
+					int newX = x+d;
+					
+					while(newX<7 && newX>=0 && Character.compare(this.plateau[p.getY()][newX],'.')!=0) {
+						newX+=p.getAR();
+					}
+					
+					
+					if(newX>=7) { //si on atteint le bord haut
+						newX = 6;
+						//Il faudra changer la direction de la piece si on decide de jouer ce coup
+					}else if(newX<0) { //Si on rencontre un bord bas
+						newX = 0;
+						//Il faudra changer la direction de la piece si on decide de jouer ce coup
+					}
+					
+					String coup = colChiffre.get(x) + p.getY() + "-" + colChiffre.get(newX) + p.getY();
+					moveArray.add(coup);
+				}	
 			}
 		}
-		return moveList;
+		
+		
+		String []arrayToTab=new String[moveArray.size()];
+		int j=0;
+		for(String i: moveArray) {
+			arrayToTab[j]=i;
+			j++;
+		}
+		return arrayToTab;
 	}
 
 	@Override
@@ -223,9 +235,9 @@ public class SquadroBoard implements IPartie2{
 					this.j1[c].setX(tab[2]);
 					this.j1[c].setY(tab[3]);
 					if(tab[3]==0 ) {
-						this.j1[c].setAR(-1);
 						this.plateau[tab[3]][tab[2]]='v';
 						this.j1[c].inverseDeplacement();
+						this.j1[c].setAR(-1);
 					}
 					if(tab[3]==6 && this.j1[c].getAR()==-1 ) {
 						this.j1[c].inverseDeplacement();
@@ -262,9 +274,9 @@ public class SquadroBoard implements IPartie2{
 					this.j2[c].setX(tab[2]);
 					this.j2[c].setY(tab[3]);
 					if(tab[2]==6) {
-						this.j2[c].setAR(-1);
 						this.plateau[tab[3]][tab[2]]='<';
 						this.j2[c].inverseDeplacement();
+						this.j2[c].setAR(-1);
 					}
 					if(tab[3]==0 && this.j2[c].getAR()==-1 ) {
 						this.j2[c].inverseDeplacement();
@@ -293,7 +305,7 @@ public class SquadroBoard implements IPartie2{
 			}
 						
 		}
-		this.lastPlayer=role;	
+		this.setLastPlayer(role);	
 		
 	}
 
@@ -350,5 +362,15 @@ public class SquadroBoard implements IPartie2{
 		tab[3] = Integer.parseInt(s4);
 		
 		return tab;
+	}
+
+
+	public String getLastPlayer() {
+		return lastPlayer;
+	}
+
+
+	public void setLastPlayer(String lastPlayer) {
+		this.lastPlayer = lastPlayer;
 	}
 }
