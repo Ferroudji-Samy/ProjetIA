@@ -37,18 +37,25 @@ public class Jeu {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		String filename="save.txt";
+		
+		long debut = System.currentTimeMillis();
+		int somme=0;
+		
+		for(int nbPartie=0 ;nbPartie<10000;nbPartie++) {
+		
+			String filename="save.txt";
 
-		
-		SquadroBoard plateau= initialisation();
-		plateau.setLastPlayer("vertical");
-		String[] cp;
-		
-		int rand ;
-		
-		
+			
+			SquadroBoard plateau= initialisation();
+			plateau.setLastPlayer("vertical");
+			String[] cp;
+			
+			int rand ;
+			
+			
 		while(!plateau.gameOver()) {
 			if(plateau.getLastPlayer().equals("vertical")) {
+				
 				cp=plateau.possibleMoves("horizontal");
 				rand = (int)(Math.random() * cp.length) + 0;
 				plateau.play(cp[rand],"horizontal");
@@ -62,8 +69,12 @@ public class Jeu {
 			}
 		}
 		
+		somme+=System.currentTimeMillis()-debut;
 		
-		System.out.print("fin test");
+	}		
+		System.out.print("fin test\n");
+		System.out.println("temps moyen d'une partie "+somme/100000+" ms");
+		//Affiche la durée d'exécution en millisecondes
 		
 		}
 }

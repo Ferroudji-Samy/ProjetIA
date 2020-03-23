@@ -5,6 +5,7 @@ public class Piece {
 	private int x,y;
 	private int AR;
 	private int deplacement;
+	private boolean inGame;
 	
 	public Piece(String nomJoueur,int posX, int posY,int deplacement) {
 		Joueur=nomJoueur;
@@ -12,6 +13,7 @@ public class Piece {
 		y=posY;
 		AR=1; //1 aller -1 retour
 		this.deplacement=deplacement;
+		setInGame(true);
 	}
 	
 	
@@ -63,10 +65,21 @@ public class Piece {
 	public void inverseDeplacement() {
 		if(this.AR==-1) {
 			this.deplacement=0;
+			this.inGame=false;
 		}
 		else {
 			this.deplacement=4-this.deplacement;
 		}
 		
+	}
+
+
+	public boolean isInGame() {
+		return inGame;
+	}
+
+
+	public void setInGame(boolean inGame) {
+		this.inGame = inGame;
 	}
 }
