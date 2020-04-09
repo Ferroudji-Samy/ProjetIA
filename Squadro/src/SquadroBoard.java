@@ -118,37 +118,17 @@ public class SquadroBoard implements IPartie2{
 		
 	}
 
-	// ATTENTION : comment prendre en compte le fait de passer au dessus d'un autre joueur ?
 	@Override
 	public boolean isValidMove(String move, String player) {
-		//TODO
+		//on verifie si le coup fait parti des coups possible
 		String[] moves=possibleMoves(player);
 		for(String i : moves) {
 			if (i.compareTo(move)==0)return true;
 		}
 		return false;
 		
-		/*
-		 * je le met en com vu que pour l'instant ca marche pas vraiment
-		 * 
-		//Peut-etre mieux de verifier le coup directement, sans avoir a creer le tableau entier des coups possibles :
-		int[] tab = stringToMove(move);
-		if(player.equals("vertical")) { 		//si le joueur joue verticalement
-			int valDep = j1[tab[1]].getDeplacement();
-			if(tab[0] != tab[2] || Math.abs(tab[3]-tab[1]) != valDep || tab[3]>=7 || tab[3]<0) { //Si la colonne change ou qu'on ne respecte pas la valeur de deplacement ou qu'on sot des mimites du tableau
-				return false;
-			}
-		} else {	//si le joueur joue horizontalement
-			int valDep = j2[tab[0]].getDeplacement();
-			if(tab[1] != tab[3]|| Math.abs(tab[2]-tab[0]) != valDep || tab[2]>=7 || tab[2]<0) { //Si la ligne change ou qu'on ne respecte pas la valeur de deplacement
-				return false;
-			}
-		}
-		return true;
-		**/
 	}
 
-	//Il faudra prendre en compte les allers retours pendant le coup et les sauts par dessus des adversaires
 	@Override
 	public String[] possibleMoves(String player) {
 		//TODO
@@ -162,20 +142,20 @@ public class SquadroBoard implements IPartie2{
 					int d= p.getDeplacement() * p.getAR();
 					int newY = y-d;
 					
+					//on verifie de pas tombe sur une piece adverse
 					while(newY<7 && newY>=0 && Character.compare(this.plateau[newY][p.getX()],'.')!=0) {
 						newY-=p.getAR();
 					}
 					
 					if(newY>=7) { //si on atteint le bord droit
 						newY = 6;
-						//Il faudra changer la direction de la piece si on decide de jouer ce coup
 					}else if(newY<0) { //Si on rencontre un bord gauche
 						newY = 0;
-						//Il faudra changer la direction de la piece si on decide de jouer ce coup
 					}
 					
 					y++;
 					newY++;
+					//on ajoute le coup
 					String coup = colChiffre.get(p.getX()) + y + "-" + colChiffre.get(p.getX()) + newY;
 					moveArray.add(coup);
 				}
@@ -190,6 +170,7 @@ public class SquadroBoard implements IPartie2{
 					int d=p.getAR()*p.getDeplacement();
 					int newX = x+d;
 					
+					//on verifie de pas tombe sur une piece adverse
 					while(newX<7 && newX>=0 && Character.compare(this.plateau[p.getY()][newX],'.')!=0) {
 						newX+=p.getAR();
 					}
@@ -197,12 +178,11 @@ public class SquadroBoard implements IPartie2{
 					
 					if(newX>=7) { //si on atteint le bord haut
 						newX = 6;
-						//Il faudra changer la direction de la piece si on decide de jouer ce coup
 					}else if(newX<0) { //Si on rencontre un bord bas
 						newX = 0;
-						//Il faudra changer la direction de la piece si on decide de jouer ce coup
 					}
 					
+					//on ajoute le coup
 					String coup = colChiffre.get(x) + (p.getY()+1) + "-" + colChiffre.get(newX) + (p.getY()+1);
 					moveArray.add(coup);
 				}	
@@ -223,6 +203,8 @@ public class SquadroBoard implements IPartie2{
 	public void play(String move, String role) {
 		int []tab = stringToMove(move);
 		char stock;
+		
+		//on deplace la piece
 		stock=this.plateau[tab[3]][tab[2]];
 		this.plateau[tab[3]][tab[2]]=this.plateau[tab[1]][tab[0]];
 		this.plateau[tab[1]][tab[0]]=stock;
@@ -232,6 +214,7 @@ public class SquadroBoard implements IPartie2{
 			
 			for(Piece i : this.j1) {
 
+				//si la piece arrive au bout
 				if(i.getX()==tab[0] && i.getY()==tab[1]) {
 					this.j1[c].setX(tab[2]);
 					this.j1[c].setY(tab[3]);
@@ -247,6 +230,8 @@ public class SquadroBoard implements IPartie2{
 					int c2=0;
 					int min=Math.min(tab[1],tab[3]);
 					int max=Math.max(tab[1],tab[3]);
+					
+					//on fait le rollback des pieces si il est necessaire
 					for(Piece j : j2) {
 						if(j.getY()>min && j.getY()<max && j.getX()==tab[0]) {
 							if (j2[c2].getAR()==1) {
@@ -270,6 +255,8 @@ public class SquadroBoard implements IPartie2{
 			
 		}
 		else {
+			
+			//si la piece arrive au bout
 			for(Piece i : this.j2) {
 				if(i.getX()==tab[0] && i.getY()==tab[1]) {
 					this.j2[c].setX(tab[2]);
@@ -285,6 +272,8 @@ public class SquadroBoard implements IPartie2{
 					int c2=0;
 					int min=Math.min(tab[0],tab[2]);
 					int max=Math.max(tab[0],tab[2]);
+					
+					//on fait le rollback des pieces si il est necessaire
 					for(Piece j : j1) {
 						if(j.getX()>min && j.getX()<max && j.getY()==tab[1]) {
 							if (j1[c2].getAR()==1) {
@@ -317,6 +306,7 @@ public class SquadroBoard implements IPartie2{
 	public boolean gameOver() {
 		int count1=0;
 		int count2=0;
+		//on compte sur les bords le nombre de piece qui ont fini
 		for(int y=1;y<this.plateau[0].length;y++) {
 
 			if(this.plateau[y][0]=='<')count1++;
@@ -350,6 +340,7 @@ public class SquadroBoard implements IPartie2{
 	}
 	
 	public int[] stringToMove(String move) { 
+		//on convertie la String en tableau de coordonnees que l'on peut exploiter
 		int[] tab = new int[4];
 		
 		String s1 = move.substring(0, 1);
