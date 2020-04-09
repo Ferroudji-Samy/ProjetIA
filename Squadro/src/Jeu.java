@@ -1,8 +1,8 @@
 
-import java.util.Random;
-
 public class Jeu {
 	
+	
+	//on initilise le plateau et on assigne j2 aux deplacements horizontaux et j1 aux deplacements verticaux
 	public static SquadroBoard initialisation() {
 		
 		String filename="save.txt";
@@ -36,16 +36,16 @@ public class Jeu {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-
+			
 			SquadroBoard plateau= initialisation();
 			plateau.setLastPlayer("vertical");
 			String[] cp;
-			
 			int rand ;
 			
 			
+		//on test le code avec des parties jouees par des joueurs aleatoires	
+		//le fichier "save.txt" sert a initialise le plateau et 
+		//	le fichier "test.txt" sert a stocke l avancement de la partie 
 		while(!plateau.gameOver()) {
 			if(plateau.getLastPlayer().equals("vertical")) {
 				
@@ -66,5 +66,7 @@ public class Jeu {
 		
 	
 		System.out.print("fin test\n");
+		//une version du code plus optimise est en cours (puisque plus c'est optimise plus on a de temps pour la recherche) mais comme il reste des erreurs
+		//on prefere vous transmetre celle-ci
 	}
 }
