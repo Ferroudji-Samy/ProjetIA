@@ -1,3 +1,4 @@
+package iia.games.base;
 
 public class Piece {
 	

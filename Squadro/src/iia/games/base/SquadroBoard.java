@@ -1,3 +1,4 @@
+package iia.games.base;
 
 import java.io.IOException;
 import java.nio.charset.Charset;

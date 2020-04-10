@@ -1,3 +1,5 @@
+package iia.games.base;
+
 import iia.games.base.Joueur;
 
 public class Jeu {
@@ -39,11 +41,12 @@ public class Jeu {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		/**
 		Joueur J=new Joueur();
 		System.out.print(J.victory());
 		System.out.print(J.defeat());
 		System.out.print(J.tie());
-
+		*/
 			SquadroBoard plateau= initialisation();
 			plateau.setLastPlayer("vertical");
 			String[] cp;
@@ -52,7 +55,6 @@ public class Jeu {
 			
 			
 		//on test le code avec des parties jouees par des joueurs aleatoires	
-		/**	
 		while(!plateau.gameOver()) {
 			if(plateau.getLastPlayer().equals("vertical")) {
 				
@@ -61,7 +63,6 @@ public class Jeu {
 				System.out.println(cp[rand]+"\n");
 				plateau.play(cp[rand],"horizontal");
 				System.out.println(cp[rand]+" fait\n");
-				plateau.affiche();
 				plateau.saveToFile("test.txt");
 			}
 			else {
@@ -70,14 +71,12 @@ public class Jeu {
 				System.out.println(cp[rand]+"\n");
 				plateau.play(cp[rand],"vertical");
 				System.out.println(cp[rand]+" fait\n");
-				plateau.affiche();
 				plateau.saveToFile("test.txt");
 			}
 		}
 		
 	
 		System.out.print("fin test\n");
-		*/
 	}
 
 }

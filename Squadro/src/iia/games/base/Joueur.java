@@ -2,8 +2,14 @@ package iia.games.base;
 
 public class Joueur implements IChallenger {
 
-	private Object role;
-
+	private String role;
+	private SquadroBoard plateau;
+	
+	public Joueur(String role, SquadroBoard plateau) {
+		this.plateau=plateau;
+		setRole(role);
+	}
+	
 	@Override
 	public String teamName() {
 		// TODO Auto-generated method stub
@@ -13,20 +19,25 @@ public class Joueur implements IChallenger {
 	@Override
 	public void setRole(String role) {
 		// TODO Auto-generated method stub
-		this.role=role.equals("vertical");
+		this.role=role;
 		
 	}
 
 	@Override
 	public void iPlay(String move) {
 		// TODO Auto-generated method stub
-		
+		this.plateau.play(move,this.role);
 	}
 
 	@Override
 	public void otherPlay(String move) {
 		// TODO Auto-generated method stub
-		
+		if(this.role.equals("vertical")) {
+			this.plateau.play(move,"horizontal");
+		}
+		else{
+			this.plateau.play(move,"vertical");
+		}
 	}
 
 	@Override
