@@ -2,7 +2,7 @@ package iia.games.base;
 
 public class Joueur implements IChallenger {
 
-	private String role;
+	private boolean role;
 	private SquadroBoard plateau;
 	
 	public Joueur(String role, SquadroBoard plateau) {
@@ -19,20 +19,23 @@ public class Joueur implements IChallenger {
 	@Override
 	public void setRole(String role) {
 		// TODO Auto-generated method stub
-		this.role=role;
+		this.role=role.equals("vertical");
 		
 	}
 
 	@Override
 	public void iPlay(String move) {
 		// TODO Auto-generated method stub
-		this.plateau.play(move,this.role);
+		if(this.role) {
+			this.plateau.play(move,"vertical");
+		}
+		this.plateau.play(move,"horizontal");
 	}
 
 	@Override
 	public void otherPlay(String move) {
 		// TODO Auto-generated method stub
-		if(this.role.equals("vertical")) {
+		if(this.role) {
 			this.plateau.play(move,"horizontal");
 		}
 		else{
