@@ -1,4 +1,4 @@
-
+import iia.games.base.Joueur;
 
 public class Jeu {
 	
@@ -39,7 +39,10 @@ public class Jeu {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
+		Joueur J=new Joueur();
+		System.out.print(J.victory());
+		System.out.print(J.defeat());
+		System.out.print(J.tie());
 
 			SquadroBoard plateau= initialisation();
 			plateau.setLastPlayer("vertical");
@@ -49,7 +52,7 @@ public class Jeu {
 			
 			
 		//on test le code avec des parties jouees par des joueurs aleatoires	
-			
+		/**	
 		while(!plateau.gameOver()) {
 			if(plateau.getLastPlayer().equals("vertical")) {
 				
@@ -74,5 +77,7 @@ public class Jeu {
 		
 	
 		System.out.print("fin test\n");
+		*/
 	}
+
 }
