@@ -1,3 +1,4 @@
+package iia.games.base;
 
 public interface IPartie2 {
 	/** 

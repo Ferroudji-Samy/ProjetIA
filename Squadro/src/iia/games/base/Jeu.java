@@ -1,3 +1,5 @@
+package iia.games.base;
+
 import iia.games.base.Joueur;
 
 public class Jeu {
@@ -38,11 +40,32 @@ public class Jeu {
 	
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Joueur J=new Joueur();
-		System.out.print(J.victory());
-		System.out.print(J.defeat());
-		System.out.print(J.tie());
+			//partie heuristique
+		Heuristique h1 = new Heuristique() {
+
+            @Override
+            public float eval(SquadroBoard plateau) {
+                int j1=0;
+                int j2=0;
+                Piece []joueur1=plateau.getJ1();
+                Piece []joueur2=plateau.getJ2();
+                for(int i=0;i<plateau.getJ1().length;i++) {
+                	if(joueur1[i].getAR()==-1) {
+                		j1++;
+                		if(joueur1[i].isInGame())j1++;
+                	}
+                	if(joueur2[i].getAR()==-1) {
+                		j2++;
+                		if(joueur2[i].isInGame())j2++;
+                	}	
+                }
+                return j1-j2;
+                
+            }
+		};
+		
+
+//////////////////////////////////////////////////////////////////////////////////////////
 
 			SquadroBoard plateau= initialisation();
 			plateau.setLastPlayer("vertical");
@@ -52,7 +75,6 @@ public class Jeu {
 			
 			
 		//on test le code avec des parties jouees par des joueurs aleatoires	
-		/**	
 		while(!plateau.gameOver()) {
 			if(plateau.getLastPlayer().equals("vertical")) {
 				
@@ -61,7 +83,6 @@ public class Jeu {
 				System.out.println(cp[rand]+"\n");
 				plateau.play(cp[rand],"horizontal");
 				System.out.println(cp[rand]+" fait\n");
-				plateau.affiche();
 				plateau.saveToFile("test.txt");
 			}
 			else {
@@ -70,14 +91,12 @@ public class Jeu {
 				System.out.println(cp[rand]+"\n");
 				plateau.play(cp[rand],"vertical");
 				System.out.println(cp[rand]+" fait\n");
-				plateau.affiche();
 				plateau.saveToFile("test.txt");
 			}
 		}
 		
 	
 		System.out.print("fin test\n");
-		*/
 	}
 
 }
