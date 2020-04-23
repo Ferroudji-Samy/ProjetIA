@@ -35,8 +35,7 @@ public class Jeu {
 		
 		SquadroBoard plateau= new SquadroBoard(init,vertical, horizontal);
 		plateau.setFromFile(filename);
-		
-		
+		plateau.setLastPlayer("horizontal");
 		
 		
 		return plateau;
@@ -72,35 +71,30 @@ public class Jeu {
 //////////////////////////////////////////////////////////////////////////////////////////
 
 			SquadroBoard plateau= initialisation();
-			plateau.setLastPlayer("vertical");
+			plateau.setLastPlayer("horizontal");
 			String[] cp;
 			
 			int rand ;
-			
-			
 		//on test le code avec des parties jouees par des joueurs aleatoires	
 		while(!plateau.gameOver()) {
 			if(plateau.getLastPlayer().equals("vertical")) {
 				
 				cp=plateau.possibleMoves("horizontal");
 				rand = (int)(Math.random() * cp.length) + 0;
-				System.out.println(cp[rand]+"\n");
 				plateau.play(cp[rand],"horizontal");
-				System.out.println(cp[rand]+" fait\n");
 				plateau.saveToFile("test.txt");
 			}
 			else {
 				cp=plateau.possibleMoves("vertical");
 				rand = (int)(Math.random() * cp.length) + 0;
-				System.out.println(cp[rand]+"\n");
 				plateau.play(cp[rand],"vertical");
-				System.out.println(cp[rand]+" fait\n");
 				plateau.saveToFile("test.txt");
 			}
 		}
 		
 	
-		System.out.print("fin test\n");
+		System.out.print("fin test , gagnant: "+ plateau.getLastPlayer() +"\n");
+		
 	}
 
 }
