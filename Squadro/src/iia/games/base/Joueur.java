@@ -2,7 +2,8 @@ package iia.games.base;
 
 public class Joueur implements IChallenger {
 
-	private boolean role;
+	private boolean role; //2 joueurs donc un booleen est plus rapide a calcule pour la comparaison qu une string
+						  //True pour le joueur vertical False pour le joueur Horizontal
 	private SquadroBoard plateau;
 	
 	public Joueur(String role, SquadroBoard plateau) {

@@ -20,6 +20,7 @@ public class SquadroBoard implements IPartie2{
 	private HashMap<Integer, String> colChiffre = new HashMap<Integer, String>();
 	
 	private String lastPlayer;
+	private boolean lastPlayerInterne; //test de fonction interne pour l'algo
 	
 	/**
 	 * instancie un plateau de jeu
@@ -51,6 +52,7 @@ public class SquadroBoard implements IPartie2{
 		this.plateau=p;
 
 		this.setLastPlayer(null);
+		this.setLastPlayerInterne(false);
 	}
 	
 	/**
@@ -100,7 +102,6 @@ public class SquadroBoard implements IPartie2{
 					tabChar[i][j]='.';
 				}
 				else {
-					int test=this.plateau[i][j];
 					tabChar[i][j]=this.getPiece(j,i).getRepresentation();
 				}
 			}
@@ -312,6 +313,76 @@ public class SquadroBoard implements IPartie2{
 		}
 		return arrayToTab;
 	}
+	
+	/**
+	 * idem que la fonction possibleMove mais pour une gestion interne
+	 * @param player
+	 * @return
+	 */
+	public int[][] possibleMovesInterne(Boolean player) {
+		ArrayList<int[]> moveArray=new ArrayList<int[]>();
+		if(player) {	//si le joueur joue verticalement
+			for(int i=0; i< j1.length; i++) {	//On rajoute le coups possible pour chaque piece
+				if(j1[i].isInGame()) {	
+					Piece p = j1[i];
+					
+					int y = p.getY();
+					int d= p.getDeplacement() * p.getAR();
+					int newY = y-d;
+					
+					while(newY<7 && newY>=0 && this.plateau[newY][p.getX()]!=0) {
+						newY-=p.getAR();
+					}
+					
+					if(newY>=7) { //si on atteint le bord droit
+						newY = 6;
+						//Il faudra changer la direction de la piece si on decide de jouer ce coup
+					}else if(newY<0) { //Si on rencontre un bord gauche
+						newY = 0;
+						//Il faudra changer la direction de la piece si on decide de jouer ce coup
+					}
+
+					String coup = colChiffre.get(p.getX()) + (y+1) + "-" + colChiffre.get(p.getX()) + (newY+1);
+					int[] s= {p.getX(),y+1,p.getX(),newY+1};
+					moveArray.add(s);
+				}
+			}
+		} 
+		else {	//si le joueur joue horizontalement
+			for(int i=0; i<j2.length; i++) {
+				if(j2[i].isInGame()) {	
+					Piece p = j2[i];
+					
+					int x = p.getX();
+					int d=p.getAR()*p.getDeplacement();
+					int newX = x+d;
+					
+					while(newX<7 && newX>=0 && this.plateau[p.getY()][newX]!=0) {
+						newX+=p.getAR();
+					}
+					
+					if(newX>=7) { //si on atteint le bord haut
+						newX = 6;
+						//Il faudra changer la direction de la piece si on decide de jouer ce coup
+					}else if(newX<0) { //Si on rencontre un bord bas
+						newX = 0;
+						//Il faudra changer la direction de la piece si on decide de jouer ce coup
+					}
+					
+					int[] s= {x,p.getY()+1,newX,p.getY()+1};
+					moveArray.add(s);
+				}	
+			}
+		}
+		
+		int [][] arrayToTab=new int[moveArray.size()][4];
+		int j=0;
+		for(int[] i: moveArray) {
+			arrayToTab[j]=i;
+			j++;
+		}
+		return arrayToTab;
+	}
 
 	
 	@Override
@@ -326,12 +397,35 @@ public class SquadroBoard implements IPartie2{
 		}		
 		retourPiece(tab,isEqual);
 		
-		this.setLastPlayer(role);	
+		this.setLastPlayer(role);		
+	}
+	
+	/**
+	 * idem que le fonction play mais pour la gestion Interne
+	 * @param move
+	 * @param role
+	 */
+	public void playInterne(int [] move, boolean role) {
+
+		Piece p=getPiece(move[0],move[1]);
+		deplacePiece(move[2],move[3],p);
+
+		if(move[3]==0|| move[3]==6 || move[2]==0 || move[2]==6) {
+			p.inverseDeplacement();	
+		}		
+		retourPiece(move,role);
+		
+		this.setLastPlayerInterne(role);	
 		
 	}
 
 	
-	
+
+	public void setLastPlayerInterne(boolean role) {
+		this.lastPlayerInterne=role;
+		
+	}
+
 	/**
 	 * retourne les pieces a leur place selon le joueur represente par un boolean
 	 * @param tab
@@ -454,6 +548,11 @@ public class SquadroBoard implements IPartie2{
 			System.out.println("\n");
 		}
 		System.out.println("\n");
+	}
+
+	public boolean getLastPlayerInterne() {
+		
+		return this.lastPlayerInterne;
 	}
 	
 	
