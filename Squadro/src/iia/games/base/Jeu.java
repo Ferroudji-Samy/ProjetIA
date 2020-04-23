@@ -6,6 +6,10 @@ public class Jeu {
 	
 	
 	//on initilise le plateau et on assigne j2 aux deplacements horizontaux et j1 aux deplacements verticaux
+	/**
+	 * initialise le plateau a partir du fichier save.txt
+	 * @return un plateau de jeu
+	 */
 	public static SquadroBoard initialisation() {
 		
 		String filename="save.txt";
@@ -14,17 +18,17 @@ public class Jeu {
 
 		
 		Piece un = new Piece('>',0,1,1);
-		Piece deux = new Piece('>',0,2,2);
-		Piece trois = new Piece('>',0,3,3);
-		Piece quatre= new Piece('>',0,4,2);
+		Piece deux = new Piece('>',0,2,3);
+		Piece trois = new Piece('>',0,3,2);
+		Piece quatre= new Piece('>',0,4,3);
 		Piece cinq = new Piece('>',0, 5,1);
 		
 		Piece []horizontal= {un,deux,trois,quatre,cinq};
 		
 		un = new Piece('^',1,6,1);
-		deux = new Piece('^',2,6,2);
-		trois = new Piece('^',3,6,3);
-		quatre= new Piece('^',4,6,2);
+		deux = new Piece('^',2,6,3);
+		trois = new Piece('^',3,6,2);
+		quatre= new Piece('^',4,6,3);
 		cinq = new Piece('^',5, 6,1);
 		
 		Piece []vertical={un,deux,trois,quatre,cinq};

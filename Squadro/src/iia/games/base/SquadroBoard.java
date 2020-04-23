@@ -21,7 +21,12 @@ public class SquadroBoard implements IPartie2{
 	
 	private String lastPlayer;
 	
-	
+	/**
+	 * instancie un plateau de jeu
+	 * @param p une matrice d'entier pour represente les joueurs 
+	 * @param pieceJ1 les pieces du joueur 1
+	 * @param pieceJ2 les pieces du joueur 2
+	 */
 	public SquadroBoard(int[][] p, Piece[] pieceJ1, Piece[] pieceJ2) {
 		this.plateau=p;
 		this.j1=pieceJ1;
@@ -48,6 +53,12 @@ public class SquadroBoard implements IPartie2{
 		this.setLastPlayer(null);
 	}
 	
+	/**
+	 * renvoie la piece situee en x y avec x y entier
+	 * @param x 
+	 * @param y
+	 * @return
+	 */
 	public Piece getPiece(int x,int y) {
 		if(this.plateau[y][x]==1) {
 			for(int i=0;i<this.j1.length;i++) {
@@ -64,6 +75,12 @@ public class SquadroBoard implements IPartie2{
 			
 	}
 	
+	/**
+	 * deplace la piece p en x y
+	 * @param x
+	 * @param y
+	 * @param p
+	 */
 	public void deplacePiece(int x,int y,Piece p) {
 			this.plateau[y][x]=this.plateau[p.getY()][p.getX()];
 			this.plateau[p.getY()][p.getX()]=0;
@@ -71,6 +88,10 @@ public class SquadroBoard implements IPartie2{
 			p.setX(x);
 	}
 	
+	
+	/**
+	 * @return un tableau de char representant le plateau de jeu
+	 */
 	public char[][] tabIntToChar(){
 		char [][]tabChar=new char[7][7];
 		for(int i=0; i<this.plateau.length;i++ ) {
@@ -87,8 +108,12 @@ public class SquadroBoard implements IPartie2{
 		return tabChar;
 	}
 	
+	
+	/**
+	 * modifie le tableau pour corespondre au tableau de caractere passe en entre
+	 * @param tabChar, un tableau de caractere representant un etat du plateau
+	 */
 	public void tabChartoInt(char[][] tabChar){
-		
 		for(int i=0; i<tabChar.length;i++ ) {
 			for(int j=0; j<tabChar.length;j++ ) {
 				if(tabChar[i][j]=='.') {
@@ -105,7 +130,9 @@ public class SquadroBoard implements IPartie2{
 		
 	}
 	
-	
+	/**
+	 * affiche le tableau dans la console
+	 */
 	public void affiche() {
 		for(int i=0;i<this.plateau.length;i++) {
 			for(int j=0;j<this.plateau.length;j++) {
@@ -140,6 +167,7 @@ public class SquadroBoard implements IPartie2{
 		}
 		tabChartoInt(tabChar);
 	}
+
 
 	@Override
 	public void saveToFile(String fileName) {
@@ -191,7 +219,6 @@ public class SquadroBoard implements IPartie2{
 		
 	}
 
-	// ATTENTION : comment prendre en compte le fait de passer au dessus d'un autre joueur ?
 	@Override
 	public boolean isValidMove(String move, String player) {
 		//TODO
@@ -221,10 +248,8 @@ public class SquadroBoard implements IPartie2{
 		**/
 	}
 
-	//reprendre ICI TODO
 	@Override
 	public String[] possibleMoves(String player) {
-		//TODO
 		ArrayList<String> moveArray=new ArrayList<String>();
 		if(player.equals("vertical")) {	//si le joueur joue verticalement
 			for(int i=0; i< j1.length; i++) {	//On rajoute le coups possible pour chaque piece
@@ -273,13 +298,11 @@ public class SquadroBoard implements IPartie2{
 						//Il faudra changer la direction de la piece si on decide de jouer ce coup
 					}
 					
-					
 					String coup = colChiffre.get(x) + (p.getY()+1) + "-" + colChiffre.get(newX) + (p.getY()+1);
 					moveArray.add(coup);
 				}	
 			}
 		}
-		
 		
 		String []arrayToTab=new String[moveArray.size()];
 		int j=0;
@@ -290,6 +313,7 @@ public class SquadroBoard implements IPartie2{
 		return arrayToTab;
 	}
 
+	
 	@Override
 	public void play(String move, String role) {
 		int []tab = stringToMove(move);
@@ -308,7 +332,11 @@ public class SquadroBoard implements IPartie2{
 
 	
 	
-	
+	/**
+	 * retourne les pieces a leur place selon le joueur represente par un boolean
+	 * @param tab
+	 * @param role
+	 */
 	private void retourPiece(int[]tab, boolean role) {
 		int min;
 		int max;
@@ -344,29 +372,43 @@ public class SquadroBoard implements IPartie2{
 			if(!j1[i].isInGame())c1++;
 			if(!j2[i].isInGame())c2++;
 		}
-		return c1>2 || c2>2;
+		return c1>3 || c2>3;
 	}
 
-
+	/**
+	 * @return renvoie les pieces du joueur 1
+	 */
 	public Piece[] getJ1() {
 		return j1;
 	}
 
-
+	/**
+	 * fixe les piece de J1 
+	 * @param j1, tableau de piece
+	 */
 	public void setJ1(Piece[] j1) {
 		this.j1 = j1;
 	}
 
-
+	/**
+	 * @return renvoie les pieces du joueur 2
+	 */
 	public Piece[] getJ2() {
 		return j2;
 	}
 
-
+	/**
+	 * fixe les piece de J2 
+	 * @param j2 tableau de piece
+	 */
 	public void setJ2(Piece[] j2) {
 		this.j2 = j2;
 	}
 	
+	/**
+	 * @param un mouvement representer par une string
+	 * @return le tableau associe a ce deplacement
+	 */
 	public int[] stringToMove(String move) { 
 		int[] tab = new int[4];
 		
@@ -383,18 +425,27 @@ public class SquadroBoard implements IPartie2{
 		return tab;
 	}
 
-
+	/**
+	 * renvoie le dernier joueur
+	 * @return
+	 */
 	public String getLastPlayer() {
 		return lastPlayer;
 	}
 
 
+	/**
+	 * fixe le dernier joueur a avoir jouer
+	 * @param lastPlayer (doit etre "vertical" ou "horizontal")
+	 */
 	public void setLastPlayer(String lastPlayer) {
 		this.lastPlayer = lastPlayer;
 	}
 	
 	
-	
+	/**
+	 * affiche le plateau
+	 */
 	public void affichePlateau() {
 		for(int i=0;i<plateau.length;i++) {
 			for(int j=0;j<plateau.length;j++) {
