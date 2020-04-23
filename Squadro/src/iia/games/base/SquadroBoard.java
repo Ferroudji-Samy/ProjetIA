@@ -153,7 +153,7 @@ public class SquadroBoard implements IPartie2{
 			for (String ligne : Files.readAllLines(Paths.get(fileName))) {
 				for (String chaine : ligne.split(" ")){
 
-					if(chaine.contains(".")||chaine.contains(">")||chaine.contains("<")||chaine.contains("^")||chaine.contains("v")) {
+					if((chaine.contains(".")||chaine.contains(">")||chaine.contains("<")||chaine.contains("^")||chaine.contains("v")) && !chaine.contains("vertical")){
 						for(int i=0;i<7;i++) {
 							tabChar[y][i]=chaine.charAt(i);
 						}
