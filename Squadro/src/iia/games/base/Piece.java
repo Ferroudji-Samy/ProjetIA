@@ -9,7 +9,7 @@ public class Piece {
 	private boolean inGame;
 	
 	public Piece(char rep,int posX, int posY,int deplacement) {
-		representation=rep;
+		representation=rep; //representation de la piece sur le plateau 
 		x=posX;
 		y=posY;
 		AR=1; //1 aller -1 retour
@@ -56,7 +56,9 @@ public class Piece {
 		this.representation=r;
 	}
 	
-
+	/**
+	 * inverse le deplacement d une piece
+	 */
 	public void inverseDeplacement() {
 		if(this.AR==-1) {
 			this.deplacement=0;
@@ -70,26 +72,36 @@ public class Piece {
 		
 	}
 
-
+	/**
+	 * inverse la representation d'une piece
+	 */
 	private void inverseRepresentation() {
 		if(representation=='^')this.representation='v';
 		else this.representation='<';
 		
 	}
 
-
+	/**
+	 * @return True si la piece est en jeu False sinon
+	 */
 	public boolean isInGame() {
 		return inGame;
 	}
 
-
+	/**
+	 * Ajoute ou retire une piece du jeu, True pour ajouter False pour retirer
+	 * @param inGame
+	 */
 	public void setInGame(boolean inGame) {
 		this.inGame = inGame;
 	}
 
-
+	/**
+	 * Remet une piece sur ca case de Retour
+	 * @param joueur True ou False
+	 * @return L'entier sur lequel la piece a ete mise
+	 */
 	public int retour(boolean joueur) {
-		// TODO Auto-generated method stub
 		if(joueur) {
 			if(getAR()==1) {
 				setY(6);
