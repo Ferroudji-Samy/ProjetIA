@@ -101,12 +101,14 @@ public class Jeu {
 				if(plateau.getLastPlayerInterne()) {
 					
 					cpi=plateau.possibleMovesInterne(false);
+					cp=plateau.possibleMoves("horizontal");
 					rand = (int)(Math.random() * cpi.length) + 0;
 					plateau.playInterne(cpi[rand],false);
 					plateau.saveToFile("test.txt");
 				}
 				else {
 					cpi=plateau.possibleMovesInterne(true);
+					cp=plateau.possibleMoves("vertical");
 					rand = (int)(Math.random() * cpi.length) + 0;
 					plateau.playInterne(cpi[rand],true);
 					plateau.saveToFile("test.txt");

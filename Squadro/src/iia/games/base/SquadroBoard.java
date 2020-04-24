@@ -342,8 +342,7 @@ public class SquadroBoard implements IPartie2{
 						//Il faudra changer la direction de la piece si on decide de jouer ce coup
 					}
 
-					String coup = colChiffre.get(p.getX()) + (y+1) + "-" + colChiffre.get(p.getX()) + (newY+1);
-					int[] s= {p.getX(),y+1,p.getX(),newY+1};
+					int[] s= {p.getX(),y,p.getX(),newY};
 					moveArray.add(s);
 				}
 			}
@@ -369,7 +368,7 @@ public class SquadroBoard implements IPartie2{
 						//Il faudra changer la direction de la piece si on decide de jouer ce coup
 					}
 					
-					int[] s= {x,p.getY()+1,newX,p.getY()+1};
+					int[] s= {x,p.getY(),newX,p.getY()};
 					moveArray.add(s);
 				}	
 			}
