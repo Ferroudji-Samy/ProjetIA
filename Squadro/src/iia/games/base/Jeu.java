@@ -117,6 +117,9 @@ public class Jeu {
 	
 		System.out.print("fin test , gagnant: "+ plateau.getLastPlayer() +"\n");
 		
+		//dans le fichier de sauvegarde il est normal d'avoir toujour le meme joueurcar on ne le change pas
+		
+		
 	}
 
 }
