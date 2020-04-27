@@ -101,12 +101,14 @@ public class Jeu {
 				if(plateau.getLastPlayerInterne()) {
 					
 					cpi=plateau.possibleMovesInterne(false);
+					cp=plateau.possibleMoves("horizontal");
 					rand = (int)(Math.random() * cpi.length) + 0;
 					plateau.playInterne(cpi[rand],false);
 					plateau.saveToFile("test.txt");
 				}
 				else {
 					cpi=plateau.possibleMovesInterne(true);
+					cp=plateau.possibleMoves("vertical");
 					rand = (int)(Math.random() * cpi.length) + 0;
 					plateau.playInterne(cpi[rand],true);
 					plateau.saveToFile("test.txt");
@@ -114,6 +116,9 @@ public class Jeu {
 			}
 	
 		System.out.print("fin test , gagnant: "+ plateau.getLastPlayer() +"\n");
+		
+		//dans le fichier de sauvegarde il est normal d'avoir toujour le meme joueurcar on ne le change pas
+		
 		
 	}
 
