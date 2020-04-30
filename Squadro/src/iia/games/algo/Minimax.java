@@ -1,52 +1,53 @@
 package iia.games.algo;
 
-//import iia.games.base.IGame;
-
-import java.util.ArrayList;
-
 import iia.games.base.IPartie2;
 import iia.games.base.Jeu;
 
-public class minimaxSimple implements IAlgo {
+public class Minimax implements IAlgo {
 
 	@Override
 	public String bestMove(IPartie2 game, String role) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	/*
+/*
+public class Minimax<M extends IMove, R extends IRole, B extends IBoard<M, R, B>> implements IAlgo<M, R, B> {
+
     private final static int DEPTHMAXDEFAUT = 4;
     private int depthMax = DEPTHMAXDEFAUT;
-    private final String roleMax;
-    private final String roleMin;
+    private final R roleMax;
+    private final R roleMin;
     private int nbNodes;
-    private int nbLeaves; 
+    private int nbLeaves;
 
-    public minimaxSimple(String maxRole, String minRole){
-        roleMax = maxRole;
-        roleMin = minRole;
+    public Minimax(R roleMax, R roleMin){
+        this.roleMax = roleMax;
+        this.roleMin = roleMin;
     }
 
-    public minimaxSimple(String maxRole, String minRole, int maxDepth){
-        roleMax = maxRole;
-        roleMin = minRole;
-        depthMax = maxDepth;
+    public Minimax(R roleMax, R roleMin, int depthMax){
+        this(roleMax, roleMin);
+        this.depthMax = depthMax;
     }
+
+    
+    //IAlgo METHODS
+    //=============
+     
 
     @Override
-    public String bestMove(IPartie2 game, String role) {
+    public M bestMove(B b, R r, IHeuristic<R, B> h) {
         System.out.println("[MiniMax]");
 
         this.nbNodes = 1;
         this.nbLeaves = 0;
-        String bestMove = null;
-        int bestMoveHeuristicValue = java.lang.Integer.MIN_VALUE;
+        M bestMove = null;
+        int bestMoveHeuristicValue = IHeuristic.MIN_VALUE;
         // On calcul tous les coups possibles
-        String[] allMoves = game.possibleMoves(roleMax);
-        for (String move : allMoves) {
-            int heuristicMove;
-            Jeu new_b = game.play(move, roleMax);
-            heuristicMove = minmax(new_b, depthMax - 1);
+        ArrayList<M> allMoves = b.possibleMoves(roleMax);
+        for (M move : allMoves) {
+            B new_b = b.play(move, roleMax);
+            final int heuristicMove = minmax(new_b, depthMax - 1, h);
             System.out.println("Le coup " + move + " a pour valeur minimax " + heuristicMove);
             if (heuristicMove > bestMoveHeuristicValue) {
                 bestMoveHeuristicValue = heuristicMove;
@@ -58,6 +59,9 @@ public class minimaxSimple implements IAlgo {
             bestMove = allMoves.get(0);
         return bestMove;
     }
+
+
+
     
     //PUBLIC METHODS
     //==============
@@ -67,29 +71,22 @@ public class minimaxSimple implements IAlgo {
         return "MiniMax(ProfMax="+ depthMax +")";
     }
 
-    public int getNbNodes() {
-        return nbNodes;
-    }
-
-    public int getNbLeaves() {
-        return nbLeaves;
-    }
 
     
     //PRIVATE METHODS
-	//===============
-             
-    public int maxmin(IGame game, int depth) {
+    //===============
+     
+    public int maxmin(B board, int depth, IHeuristic<R, B> h) {
         // C'est joueurMax qui joue
-        if (depth == 0 || game.isGameOver()) {
+        if (depth == 0 || board.isGameOver()) {
             nbLeaves++;
-            return game.getValue(roleMax);
+            return h.eval(board, roleMax);
         } else {
             nbNodes++;
-            int maxValue = java.lang.Integer.MIN_VALUE;
+            int maxValue = IHeuristic.MIN_VALUE;
             // System.out.println("Coups Possibles for " + plateau + " :  "+ lesCoups);
-            for (IGame succ : game.successors(roleMax)) {
-                maxValue = Math.max(maxValue, minmax(succ, depth - 1) );
+            for (B succ : board.successors(roleMax)) {
+                maxValue = Math.max(maxValue, minmax(succ, depth - 1, h) );
                 // System.out.println("maxValue for " + nPlateau + " =  "+ maxValue);
             }
             // System.out.println("maxValue " + plateau + " =  "+ maxValue);
@@ -97,17 +94,17 @@ public class minimaxSimple implements IAlgo {
         }
     }
 
-    public int minmax(IGame game, int depth) {
+    public int minmax(B board, int depth, IHeuristic<R, B> h) {
         // C'est joueurMin qui joue
-        if (depth == 0 || game.isGameOver()) {
+        if (depth == 0 || board.isGameOver()) {
             nbLeaves++;
-            return game.getValue(roleMin);
+            return h.eval(board, roleMin);
         } else {
             nbNodes++;
-            int minValue = java.lang.Integer.MAX_VALUE;
+            int minValue = IHeuristic.MAX_VALUE;
             // System.out.println("Coups Possibles for " + plateau + " :  "+ lesCoups);
-            for (IGame succ : game.successors(roleMin)) {
-                minValue = Math.min(minValue, maxmin(succ, depth - 1));
+            for (B succ : board.successors(roleMin)) {
+                minValue = Math.min(minValue, maxmin(succ, depth - 1, h));
                 //System.out.println("minValue for " + nPlateau + " =  "+ minValue);
             }
 
@@ -115,5 +112,5 @@ public class minimaxSimple implements IAlgo {
             return minValue;
         }
     }
-    */
+*/
 }
