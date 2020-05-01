@@ -1,6 +1,6 @@
 package iia.games.base;
 
-import iia.games.base.Joueur;
+import iia.games.base.MyChallenger;
 
 public class Jeu {
 	
@@ -41,8 +41,8 @@ public class Jeu {
 		
 		return plateau;
 	}
+/**
 	
-
 	public static void main(String[] args) {
 			//partie heuristique
 		Heuristique h1 = new Heuristique() {
@@ -95,6 +95,8 @@ public class Jeu {
 			}
 		}
 		*/
+	
+/**
 			
 		//on test la representation interne
 			while(!plateau.gameOver()) {
@@ -121,5 +123,6 @@ public class Jeu {
 		
 		
 	}
+	*/
 
 }

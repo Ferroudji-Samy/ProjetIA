@@ -1,14 +1,13 @@
 package iia.games.base;
 
-public class Joueur implements IChallenger {
+public class MyChallenger implements IChallenger {
 
 	private boolean role; //2 joueurs donc un booleen est plus rapide a calcule pour la comparaison qu une string
 						  //True pour le joueur vertical False pour le joueur Horizontal
 	private SquadroBoard plateau;
 	
-	public Joueur(String role, SquadroBoard plateau) {
-		this.plateau=plateau;
-		setRole(role);
+	public MyChallenger() {
+		this.plateau= Jeu.initialisation();
 	}
 	
 	@Override
@@ -26,7 +25,7 @@ public class Joueur implements IChallenger {
 
 	@Override
 	public void iPlay(String move) {
-		// TODO Auto-generated method stub
+		System.out.println(move);
 		if(this.role) {
 			this.plateau.play(move,"vertical");
 		}
@@ -47,7 +46,18 @@ public class Joueur implements IChallenger {
 	@Override
 	public String bestMove() {
 		// TODO Auto-generated method stub
-		return null;
+		if(this.role) {
+			String[] s=this.plateau.possibleMoves("vertical");
+			int i=(int)(Math.random() * s.length);
+			System.out.println(i);
+			return s[i];
+		}
+		else{
+			String[] s=this.plateau.possibleMoves("horizontal");
+			int i=(int)(Math.random() * s.length);
+			System.out.println(i);
+			return s[i];
+		}
 	}
 
 	@Override
