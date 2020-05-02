@@ -18,12 +18,17 @@ public class IDAlphaBeta {
 		for (int depth=1; depth<MaxDepth;depth++){
 			if (System.currentTimeMillis() - startTime > MaxAllowedTime) break;
 			double val = Integer.MIN_VALUE;
+				//solution provisoire
+				int i=0;
+				int[][]move=state.possibleMovesInterne(!state.getLastPlayerInterne());
+				////
 				for (SquadroBoard successor : state.successeurs(!state.getLastPlayerInterne())) {
 					double score = alphaBeta(successor, Integer.MIN_VALUE, Integer.MAX_VALUE, depth,evaluationFunc);
 				    if (score > val) {
 				    	val=score;
-				    	bestMove = successor.moves;//TODO
+				    	bestMove = move[i];//TODO
 				    }
+				    i++;
 				  }
 		}
 		return bestMove;
