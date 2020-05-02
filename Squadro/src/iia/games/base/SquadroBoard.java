@@ -579,6 +579,7 @@ public class SquadroBoard implements IPartie2{
 		sb.lastPlayerInterne = this.lastPlayerInterne;
 		return sb;
 	}
+
 	
 	public boolean isTerminal() {
 		return this.gameOver();
