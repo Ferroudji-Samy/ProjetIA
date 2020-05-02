@@ -554,6 +554,29 @@ public class SquadroBoard implements IPartie2{
 		return this.lastPlayerInterne;
 	}
 	
+	/** Donne tous les successeurs du plateau courant :
+	 * Cree des copies du plateau auxquelles on applique chacune un coup possible et renvoie la liste des plateaux obtenus
+	 * @param player un boolean representant le joueur qui va jouer
+	 * @return la liste des plateaux successeurs
+	 **/
+	public void successeurs(Boolean player) {
+		ArrayList<SquadroBoard> successeurs = new ArrayList<>();
+		int[][] moves = possibleMovesInterne(player);
+		for(int i=0; i<moves.length; i++) {
+			SquadroBoard s = this.copy();
+			s.playInterne(moves[i], player);
+			successeurs.add(s);
+		}
+	}
 	
+	/** Fait une copie du plateau
+	 * @return une copie du plateau
+	 **/
+	public SquadroBoard copy() {
+		SquadroBoard sb = new SquadroBoard(this.plateau, this.j1, this.j2);
+		sb.lastPlayer = this.lastPlayer;
+		sb.lastPlayerInterne = this.lastPlayerInterne;
+		return sb;
+	}
 	
 }
