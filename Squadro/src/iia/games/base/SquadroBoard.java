@@ -559,7 +559,7 @@ public class SquadroBoard implements IPartie2{
 	 * @param player un boolean representant le joueur qui va jouer
 	 * @return la liste des plateaux successeurs
 	 **/
-	public void successeurs(Boolean player) {
+	public ArrayList<SquadroBoard> successeurs(Boolean player) {
 		ArrayList<SquadroBoard> successeurs = new ArrayList<>();
 		int[][] moves = possibleMovesInterne(player);
 		for(int i=0; i<moves.length; i++) {
@@ -567,6 +567,7 @@ public class SquadroBoard implements IPartie2{
 			s.playInterne(moves[i], player);
 			successeurs.add(s);
 		}
+		return successeurs;
 	}
 	
 	/** Fait une copie du plateau
