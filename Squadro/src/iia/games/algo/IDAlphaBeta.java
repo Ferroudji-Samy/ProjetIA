@@ -19,7 +19,7 @@ public class IDAlphaBeta {
 			if (System.currentTimeMillis() - startTime > MaxAllowedTime) break;
 			double val = Integer.MIN_VALUE;
 				for (SquadroBoard successor : state.successeurs(!state.getLastPlayerInterne())) {
-					double score = alphaBeta(successor, Integer.MIN_VALUE, Integer.MAX_VALUE, depth);
+					double score = alphaBeta(successor, Integer.MIN_VALUE, Integer.MAX_VALUE, depth,evaluationFunc);
 				    if (score > val) {
 				    	val=score;
 				    	bestMove = successor.moves;//TODO
@@ -29,9 +29,7 @@ public class IDAlphaBeta {
 		return bestMove;
 	}
 	
-	public double alphaBeta(SquadroBoard state,double alpha,double beta,int depth){
-		maxValue(state, alpha, beta, depth);
-		minValue(state, alpha, beta, depth);
+	public double alphaBeta(SquadroBoard state,double alpha,double beta,int depth, Heuristique evaluationFunc){
 		if (state.gameOver()){
 			if(state.getLastPlayerInterne()==ami) {
 				return Integer.MAX_VALUE;
@@ -40,21 +38,21 @@ public class IDAlphaBeta {
 		}
 		
 		if (depth <= 0 || System.currentTimeMillis() - startTime > MaxAllowedTime) {
-			return evaluationFunc(state); //heuristique
+			return evaluationFunc.eval(state); //heuristique
 		}
 		
 		if (state.getLastPlayerInterne()==ami){
-			return maxValue(state, alpha, beta, depth); 
+			return maxValue(state, alpha, beta, depth,evaluationFunc); 
 		}
-		else return minValue(state, alpha, beta, depth);
+		else return minValue(state, alpha, beta, depth,evaluationFunc);
 
 	}
 	
-	public double maxValue(SquadroBoard state,double alpha,double beta,int depth) {
+	public double maxValue(SquadroBoard state,double alpha,double beta,int depth, Heuristique evaluationFunc) {
 		double val = Integer.MIN_VALUE;
 			      for (SquadroBoard successor : state.successeurs(!state.getLastPlayerInterne())) {
 			    	  
-			        val = Math.max(val, alphaBeta(successor, alpha, beta, depth));
+			        val = Math.max(val, alphaBeta(successor, alpha, beta, depth, evaluationFunc));
 			        if (val >= beta) return val;
 			        alpha = Math.max(alpha, val);
 			}
@@ -62,10 +60,10 @@ public class IDAlphaBeta {
 	}
 	
 	
-	public double minValue(SquadroBoard state,double alpha,double beta,int depth) {
+	public double minValue(SquadroBoard state,double alpha,double beta,int depth, Heuristique evaluationFunc) {
 		double val = Integer.MAX_VALUE;
 		for (SquadroBoard successor : state.successeurs(!state.getLastPlayerInterne())) {
-			        val = Math.min(val, alphaBeta(successor, alpha, beta, depth - 1));
+			        val = Math.min(val, alphaBeta(successor, alpha, beta, depth - 1, evaluationFunc));
 			        if (val <= alpha) return val;
 			        beta = Math.min(beta, val);
 		}
