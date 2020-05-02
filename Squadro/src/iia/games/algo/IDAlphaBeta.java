@@ -9,6 +9,7 @@ public class IDAlphaBeta {
 	final int MaxAllowedTime = 10000;
 	final int MaxDepth=100;
 	private long startTime;
+	private boolean ami;
 	
 	public int[] IdAlphaBeta(SquadroBoard state, Heuristique evaluationFunc) {
 		//TODO
@@ -16,12 +17,12 @@ public class IDAlphaBeta {
 		int [] bestMove = null;
 		for (int depth=1; depth<MaxDepth;depth++){
 			if (System.currentTimeMillis() - startTime > MaxAllowedTime) break;
-			double val = -MaxUtility;
+			double val = Integer.MIN_VALUE;
 				for (SquadroBoard successor : state.successeurs(!state.getLastPlayerInterne())) {
-					double score = alphaBetaSearch(successor, -MaxUtility, MaxUtility, depth);
+					double score = alphaBeta(successor, Integer.MIN_VALUE, Integer.MAX_VALUE, depth);
 				    if (score > val) {
 				    	val=score;
-				    	bestMove = successor.moves;
+				    	bestMove = successor.moves;//TODO
 				    }
 				  }
 		}
@@ -32,14 +33,17 @@ public class IDAlphaBeta {
 		maxValue(state, alpha, beta, depth);
 		minValue(state, alpha, beta, depth);
 		if (state.gameOver()){
-			return state.getTerminalUtility()
+			if(state.getLastPlayerInterne()==ami) {
+				return Integer.MAX_VALUE;
+			}
+			else return Integer.MIN_VALUE;
 		}
 		
 		if (depth <= 0 || System.currentTimeMillis() - startTime > MaxAllowedTime) {
-			return evaluationFunc(state);
+			return evaluationFunc(state); //heuristique
 		}
 		
-		if (state.blackToMove == IsPlayerBlack ){
+		if (state.getLastPlayerInterne()==ami){
 			return maxValue(state, alpha, beta, depth); 
 		}
 		else return minValue(state, alpha, beta, depth);
@@ -47,7 +51,7 @@ public class IDAlphaBeta {
 	}
 	
 	public double maxValue(SquadroBoard state,double alpha,double beta,int depth) {
-		double val = -MaxUtility;
+		double val = Integer.MIN_VALUE;
 			      for (SquadroBoard successor : state.successeurs(!state.getLastPlayerInterne())) {
 			    	  
 			        val = Math.max(val, alphaBeta(successor, alpha, beta, depth));
@@ -59,7 +63,7 @@ public class IDAlphaBeta {
 	
 	
 	public double minValue(SquadroBoard state,double alpha,double beta,int depth) {
-		double val = MaxUtility;
+		double val = Integer.MAX_VALUE;
 		for (SquadroBoard successor : state.successeurs(!state.getLastPlayerInterne())) {
 			        val = Math.min(val, alphaBeta(successor, alpha, beta, depth - 1));
 			        if (val <= alpha) return val;
