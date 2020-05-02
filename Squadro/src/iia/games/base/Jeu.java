@@ -12,12 +12,12 @@ public class Jeu {
 	 */
 	public static SquadroBoard initialisation() {
 		
-		String filename="save.txt";
+		String filename="C:\\Users\\Lelouch\\Desktop\\Arbitre\\save.txt";
 		
 		int [][]init=new int[7][7];
 
 		
-		Piece un = new Piece('>',0,1,1);
+		Piece un = new Piece('>',0,1,1); //x y deplacement
 		Piece deux = new Piece('>',0,2,3);
 		Piece trois = new Piece('>',0,3,2);
 		Piece quatre= new Piece('>',0,4,3);
@@ -25,17 +25,16 @@ public class Jeu {
 		
 		Piece []horizontal= {un,deux,trois,quatre,cinq};
 		
-		un = new Piece('^',1,6,1);
-		deux = new Piece('^',2,6,3);
+		un = new Piece('^',1,6,3);
+		deux = new Piece('^',2,6,1);
 		trois = new Piece('^',3,6,2);
-		quatre= new Piece('^',4,6,3);
-		cinq = new Piece('^',5, 6,1);
+		quatre= new Piece('^',4,6,1);
+		cinq = new Piece('^',5, 6,3);
 		
 		Piece []vertical={un,deux,trois,quatre,cinq};
 		
 		SquadroBoard plateau= new SquadroBoard(init,vertical, horizontal);
 		plateau.setFromFile(filename);
-		plateau.setLastPlayer("horizontal");
 		plateau.setLastPlayerInterne(false);
 		
 		
