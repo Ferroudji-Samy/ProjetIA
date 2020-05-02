@@ -580,4 +580,8 @@ public class SquadroBoard implements IPartie2{
 		return sb;
 	}
 	
+	public boolean isTerminal() {
+		return this.gameOver();
+	}
+	
 }
