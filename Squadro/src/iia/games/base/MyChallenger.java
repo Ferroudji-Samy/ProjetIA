@@ -7,7 +7,7 @@ public class MyChallenger implements IChallenger {
 	private SquadroBoard plateau;
 	
 	public MyChallenger() {
-		this.plateau= Jeu.initialisation();
+		this.setPlateau(Jeu.initialisation());
 	}
 	
 	@Override
@@ -27,19 +27,19 @@ public class MyChallenger implements IChallenger {
 	public void iPlay(String move) {
 		System.out.println(move);
 		if(this.role) {
-			this.plateau.play(move,"vertical");
+			this.getPlateau().play(move,"vertical");
 		}
-		this.plateau.play(move,"horizontal");
+		else this.getPlateau().play(move,"horizontal");
 	}
 
 	@Override
 	public void otherPlay(String move) {
 		// TODO Auto-generated method stub
 		if(this.role) {
-			this.plateau.play(move,"horizontal");
+			this.getPlateau().play(move,"horizontal");
 		}
 		else{
-			this.plateau.play(move,"vertical");
+			this.getPlateau().play(move,"vertical");
 		}
 	}
 
@@ -47,13 +47,13 @@ public class MyChallenger implements IChallenger {
 	public String bestMove() {
 		// TODO Auto-generated method stub
 		if(this.role) {
-			String[] s=this.plateau.possibleMoves("vertical");
+			String[] s=this.getPlateau().possibleMoves("vertical");
 			int i=(int)(Math.random() * s.length);
 			System.out.println(i);
 			return s[i];
 		}
 		else{
-			String[] s=this.plateau.possibleMoves("horizontal");
+			String[] s=this.getPlateau().possibleMoves("horizontal");
 			int i=(int)(Math.random() * s.length);
 			System.out.println(i);
 			return s[i];
@@ -112,6 +112,14 @@ public class MyChallenger implements IChallenger {
 				"	⢀⣾⣽⣿⣿⣿⣿⠛⢲⣶⣾⢉⡷⣿⣿⠵⣿⠀⠀⠀⠀⠀⠀"+"\n"+
 				"	⣼⣿⠍⠉⣿⡭⠉⠙⢺⣇⣼⡏⠀⠀⠀⣄⢸⠀⠀⠀⠀⠀⠀"+"\n"+
 				"	⣿⣿⣧⣀⣿.........⣀⣰⣏⣘⣆⣀⠀⠀"+"\n";
+	}
+
+	public SquadroBoard getPlateau() {
+		return plateau;
+	}
+
+	public void setPlateau(SquadroBoard plateau) {
+		this.plateau = plateau;
 	}
 
 }

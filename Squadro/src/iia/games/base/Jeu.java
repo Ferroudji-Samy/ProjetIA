@@ -40,7 +40,6 @@ public class Jeu {
 		
 		return plateau;
 	}
-/**
 	
 	public static void main(String[] args) {
 			//partie heuristique
@@ -69,31 +68,33 @@ public class Jeu {
 		
 
 //////////////////////////////////////////////////////////////////////////////////////////
-
-			SquadroBoard plateau= initialisation();
-			plateau.setLastPlayer("horizontal");
-			String[] cp;
-			int[][] cpi;
-			
-			int rand ;
-		//on test le code avec des parties jouees par des joueurs aleatoires	
-		/**
-			while(!plateau.gameOver()) {
-			if(plateau.getLastPlayer().equals("vertical")) {
-				
-				cp=plateau.possibleMoves("horizontal");
-				rand = (int)(Math.random() * cp.length) + 0;
-				plateau.play(cp[rand],"horizontal");
-				plateau.saveToFile("test.txt");
+			MyChallenger vert=new MyChallenger();
+			MyChallenger hori=new MyChallenger();
+			vert.setRole("vertical");
+			hori.setRole("horizontal");
+			hori.getPlateau().setLastPlayer("horizontal");
+		
+			String res="vertical";
+			//on test le code avec des parties jouees par des joueurs aleatoires	
+			while(!hori.getPlateau().gameOver() ||!vert.getPlateau().gameOver()) {
+			if(res.equals("horizontal")) {
+				System.out.println("Horizontal");
+				String move=hori.bestMove();
+				hori.iPlay(move);
+				vert.otherPlay(move);
+				hori.getPlateau().saveToFile("test.txt");
+				res="vertical";
 			}
 			else {
-				cp=plateau.possibleMoves("vertical");
-				rand = (int)(Math.random() * cp.length) + 0;
-				plateau.play(cp[rand],"vertical");
-				plateau.saveToFile("test.txt");
+				System.out.println("vertical");
+				String move=vert.bestMove();
+				vert.iPlay(move);
+				hori.otherPlay(move);
+				vert.getPlateau().saveToFile("test.txt");
+				res="horizontal";
 			}
 		}
-		*/
+			System.out.println("le Perdant est:"+res );
 	
 /**
 			
@@ -123,5 +124,5 @@ public class Jeu {
 		
 	}
 	*/
-
+	}
 }
