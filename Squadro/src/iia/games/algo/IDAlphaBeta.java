@@ -75,41 +75,5 @@ public class IDAlphaBeta {
 			      return val;
 	}
 	
-	
-	/**
-	def iterativeDeepeningAlphaBeta(state, evaluationFunc):
-		  startTime = time()
-
-		  def alphaBetaSearch(state, alpha, beta, depth):
-		    def maxValue(state, alpha, beta, depth):
-		      val = -MaxUtility
-		      for successor in state.getSuccessors():
-		        val = max(val, alphaBetaSearch(successor, alpha, beta, depth))
-		        if val >= beta: return val
-		        alpha = max(alpha, val)
-		      return val
-
-		    def minValue(state, alpha, beta, depth):
-		      val = MaxUtility
-		      for successor in state.getSuccessors():
-		        val = min(val, alphaBetaSearch(successor, alpha, beta, depth - 1))
-		        if val <= alpha: return val
-		        beta = min(beta, val)
-		      return val
-
-		    if state.isTerminalState(): return state.getTerminalUtility()
-		    if depth <= 0 or time() - startTime > MaxAllowedTimeInSeconds: return evaluationFunc(state)
-		    return maxValue(state, alpha, beta, depth) if state.blackToMove == IsPlayerBlack else minValue(state, alpha, beta, depth)
-
-		  bestMove = None
-		  for depth in xrange(1, MaxDepth):
-		    if time() - startTime > MaxAllowedTimeInSeconds: break
-		    val = -MaxUtility
-		    for successor in state.getSuccessors():
-		      score = alphaBetaSearch(successor, -MaxUtility, MaxUtility, depth)
-		      if score > val:
-		        val, bestMove = score, successor.moves
-		  return bestMove
-**/	
 
 }
