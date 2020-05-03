@@ -13,19 +13,20 @@ public class MyChallenger implements IChallenger {
 	@Override
 	public String teamName() {
 		// TODO Auto-generated method stub
+		System.out.println(role);
 		return "Patricia_Samy";
+		
 	}
 
 	@Override
 	public void setRole(String role) {
 		// TODO Auto-generated method stub
 		this.role=role.equals("vertical");
-		
+		System.out.println(role);
 	}
 
 	@Override
 	public void iPlay(String move) {
-		System.out.println(move);
 		if(this.role) {
 			this.getPlateau().play(move,"vertical");
 		}
@@ -49,13 +50,11 @@ public class MyChallenger implements IChallenger {
 		if(this.role) {
 			String[] s=this.getPlateau().possibleMoves("vertical");
 			int i=(int)(Math.random() * s.length);
-			System.out.println(i);
 			return s[i];
 		}
 		else{
 			String[] s=this.getPlateau().possibleMoves("horizontal");
 			int i=(int)(Math.random() * s.length);
-			System.out.println(i);
 			return s[i];
 		}
 	}

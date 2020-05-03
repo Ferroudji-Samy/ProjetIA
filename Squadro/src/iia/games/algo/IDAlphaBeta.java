@@ -7,7 +7,7 @@ public class IDAlphaBeta {
 	
 	
 	final int MaxAllowedTime = 10000;
-	final int MaxDepth=100;
+	final int MaxDepth=10000;
 	private long startTime;
 	private boolean ami;
 	
