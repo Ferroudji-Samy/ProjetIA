@@ -1,17 +1,16 @@
 package iia.games.algo;
 
-import iia.games.base.Heuristique;
+import iia.games.base.CHeuristique;
 import iia.games.base.SquadroBoard;
 
 public class IDAlphaBeta {
-	
 	
 	final int MaxAllowedTime = 10000;
 	final int MaxDepth=10000;
 	private long startTime;
 	private boolean ami;
 	
-	public int[] IdAlphaBeta(SquadroBoard state, Heuristique evaluationFunc) {
+	public int[] IdAlphaBeta(SquadroBoard state, CHeuristique evaluationFunc) {
 		//TODO
 		startTime=System.currentTimeMillis();
 		int [] bestMove = null;
@@ -34,7 +33,7 @@ public class IDAlphaBeta {
 		return bestMove;
 	}
 	
-	public double alphaBeta(SquadroBoard state,double alpha,double beta,int depth, Heuristique evaluationFunc){
+	public double alphaBeta(SquadroBoard state,double alpha,double beta,int depth, CHeuristique evaluationFunc){
 		if (state.gameOver()){
 			if(state.getLastPlayerInterne()==ami) {
 				return Integer.MAX_VALUE;
@@ -53,7 +52,7 @@ public class IDAlphaBeta {
 
 	}
 	
-	public double maxValue(SquadroBoard state,double alpha,double beta,int depth, Heuristique evaluationFunc) {
+	public double maxValue(SquadroBoard state,double alpha,double beta,int depth, CHeuristique evaluationFunc) {
 		double val = Integer.MIN_VALUE;
 			      for (SquadroBoard successor : state.successeurs(!state.getLastPlayerInterne())) {
 			    	  
@@ -65,7 +64,7 @@ public class IDAlphaBeta {
 	}
 	
 	
-	public double minValue(SquadroBoard state,double alpha,double beta,int depth, Heuristique evaluationFunc) {
+	public double minValue(SquadroBoard state,double alpha,double beta,int depth, CHeuristique evaluationFunc) {
 		double val = Integer.MAX_VALUE;
 		for (SquadroBoard successor : state.successeurs(!state.getLastPlayerInterne())) {
 			        val = Math.min(val, alphaBeta(successor, alpha, beta, depth - 1, evaluationFunc));

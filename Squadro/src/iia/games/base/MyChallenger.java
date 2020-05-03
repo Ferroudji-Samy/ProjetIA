@@ -1,5 +1,8 @@
 package iia.games.base;
 
+import iia.games.algo.Aleatoire;
+import iia.games.algo.IDAlphaBeta;
+
 public class MyChallenger implements IChallenger {
 
 	private boolean role; //2 joueurs donc un booleen est plus rapide a calcule pour la comparaison qu une string
@@ -19,9 +22,9 @@ public class MyChallenger implements IChallenger {
 	}
 
 	@Override
-	public void setRole(String role) {
+	public void setRole(String r) {
 		// TODO Auto-generated method stub
-		this.role=role.equals("vertical");
+		this.role=r.equals("vertical");
 		System.out.println(role);
 	}
 
@@ -46,17 +49,11 @@ public class MyChallenger implements IChallenger {
 
 	@Override
 	public String bestMove() {
-		// TODO Auto-generated method stub
-		if(this.role) {
-			String[] s=this.getPlateau().possibleMoves("vertical");
-			int i=(int)(Math.random() * s.length);
-			return s[i];
-		}
-		else{
-			String[] s=this.getPlateau().possibleMoves("horizontal");
-			int i=(int)(Math.random() * s.length);
-			return s[i];
-		}
+		//return Aleatoire.alea(this.plateau,this.role);
+		IDAlphaBeta a=new IDAlphaBeta();
+		System.out.println("AlphaBeta");
+		return plateau.moveToString(a.IdAlphaBeta(this.plateau,CHeuristique.h1));
+		
 	}
 
 	@Override

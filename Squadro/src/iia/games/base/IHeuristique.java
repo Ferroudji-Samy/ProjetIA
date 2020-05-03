@@ -1,6 +1,6 @@
 package iia.games.base;
 
-public interface Heuristique {
+public interface IHeuristique {
 
     /**
      * @param e
