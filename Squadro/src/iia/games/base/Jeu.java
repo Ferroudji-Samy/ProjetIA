@@ -42,32 +42,7 @@ public class Jeu {
 	}
 	
 	public static void main(String[] args) {
-			//partie heuristique
-		Heuristique h1 = new Heuristique() {
 
-            @Override
-            public float eval(SquadroBoard plateau) {
-                int j1=0;
-                int j2=0;
-                Piece []joueur1=plateau.getJ1();
-                Piece []joueur2=plateau.getJ2();
-                for(int i=0;i<plateau.getJ1().length;i++) {
-                	if(joueur1[i].getAR()==-1) {
-                		j1++;
-                		if(joueur1[i].isInGame())j1++;
-                	}
-                	if(joueur2[i].getAR()==-1) {
-                		j2++;
-                		if(joueur2[i].isInGame())j2++;
-                	}	
-                }
-                return j1-j2;
-                
-            }
-		};
-		
-
-//////////////////////////////////////////////////////////////////////////////////////////
 			MyChallenger vert=new MyChallenger();
 			MyChallenger hori=new MyChallenger();
 			vert.setRole("vertical");
@@ -78,7 +53,6 @@ public class Jeu {
 			//on test le code avec des parties jouees par des joueurs aleatoires	
 			while(!hori.getPlateau().gameOver() ||!vert.getPlateau().gameOver()) {
 			if(res.equals("horizontal")) {
-				System.out.println("Horizontal");
 				String move=hori.bestMove();
 				hori.iPlay(move);
 				vert.otherPlay(move);
@@ -86,7 +60,6 @@ public class Jeu {
 				res="vertical";
 			}
 			else {
-				System.out.println("vertical");
 				String move=vert.bestMove();
 				vert.iPlay(move);
 				hori.otherPlay(move);

@@ -517,6 +517,20 @@ public class SquadroBoard implements IPartie2{
 		
 		return tab;
 	}
+	
+	/**
+	 * @param un mouvement representer par un tableau d entier
+	 * @return la string associe a ce deplacement
+	 */
+	public String moveToString(int[] m) { 
+
+		String s1 = colChiffre.get(m[0]);
+		String s2 = Integer.toString(m[1]+1);
+		String s3 = colChiffre.get(m[2]);
+		String s4 = Integer.toString(m[3]+1);
+				
+		return s1+s2+"-"+s3+s4;
+	}
 
 	/**
 	 * renvoie le dernier joueur
