@@ -55,24 +55,23 @@ public class IDAlphaBeta {
 	
 	public double maxValue(SquadroBoard state,double alpha,double beta,int depth, CHeuristique evaluationFunc) {
 		double val = Integer.MIN_VALUE;
-			      for (SquadroBoard successor : state.successeurs(!state.getLastPlayerInterne())) {
-			    	  
-			        val = Math.max(val, alphaBeta(successor, alpha, beta, depth, evaluationFunc));
-			        if (val >= beta) return val;
-			        alpha = Math.max(alpha, val);
-			}
-			  return val;
+		for (SquadroBoard successor : state.successeurs(!state.getLastPlayerInterne())) {
+			val = Math.max(val, alphaBeta(successor, alpha, beta, depth, evaluationFunc));
+			if (val >= beta) return val;
+				alpha = Math.max(alpha, val);
+		}
+		return val;
 	}
 	
 	
 	public double minValue(SquadroBoard state,double alpha,double beta,int depth, CHeuristique evaluationFunc) {
 		double val = Integer.MAX_VALUE;
 		for (SquadroBoard successor : state.successeurs(!state.getLastPlayerInterne())) {
-			        val = Math.min(val, alphaBeta(successor, alpha, beta, depth - 1, evaluationFunc));
-			        if (val <= alpha) return val;
-			        beta = Math.min(beta, val);
+			val = Math.min(val, alphaBeta(successor, alpha, beta, depth - 1, evaluationFunc));
+			if (val <= alpha) return val;
+				beta = Math.min(beta, val);
 		}
-			      return val;
+		return val;
 	}
 	
 

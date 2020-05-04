@@ -587,12 +587,22 @@ public class SquadroBoard implements IPartie2{
 	/** Fait une copie du plateau
 	 * @return une copie du plateau
 	 **/
-	public SquadroBoard copy() {
+	public SquadroBoard copy() { 
+		int[][] p = new int [this.plateau.length][this.plateau[0].length];
+		for(int i=0; i<this.plateau.length; i++) {
+			for(int j=0; j<this.plateau[0].length; j++) {
+				p[i][j] = this.plateau[i][j];
+			}
+		}
 		SquadroBoard sb = new SquadroBoard(this.plateau, this.j1, this.j2);
 		sb.lastPlayer = this.lastPlayer;
 		sb.lastPlayerInterne = this.lastPlayerInterne;
-		return sb;
+		return sb; 
 	}
 
+	
+	public boolean isTerminal() {
+		return this.gameOver();
+	}
 	
 }
