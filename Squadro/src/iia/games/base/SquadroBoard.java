@@ -573,7 +573,7 @@ public class SquadroBoard implements IPartie2{
 	/** Fait une copie du plateau
 	 * @return une copie du plateau
 	 **/
-	public SquadroBoard copy() {
+	public SquadroBoard copy() { 
 		int[][] p = new int [this.plateau.length][this.plateau[0].length];
 		for(int i=0; i<this.plateau.length; i++) {
 			for(int j=0; j<this.plateau[0].length; j++) {
