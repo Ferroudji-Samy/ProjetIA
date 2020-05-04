@@ -60,14 +60,15 @@ public class Jeu {
 				res="vertical";
 			}
 			else {
-				String move=vert.bestMove();
+				String[] m=vert.getPlateau().possibleMoves("Vertical");
+				String move=m[(int)(Math.random() * m.length) + 0];
 				vert.iPlay(move);
 				hori.otherPlay(move);
 				vert.getPlateau().saveToFile("test.txt");
 				res="horizontal";
 			}
 		}
-			System.out.println("le Perdant est:"+res );
+			System.out.println("le gagnant est:"+res );
 	
 /**
 			

@@ -5,16 +5,24 @@ import iia.games.base.SquadroBoard;
 
 public class IDAlphaBeta {
 	
-	final int MaxAllowedTime = 1000;
+	final int MaxAllowedTime = 10000;
 	final int MaxDepth=1000000000;
 	private long startTime;
 	private boolean ami;
 	
+	/**
+	 * inspire d'un code en python trouve sur git,
+	 * nous l'avons modifie pour qu'il puisse tourne en java
+	 * on a egalement modifie un peu le code pour evite quelques bugs
+	 * @param state notre plateau
+	 * @param evaluationFunc heuristique
+	 * @return le meilleur coup a jouer
+	 */
 	public int[] IdAlphaBeta(SquadroBoard state, CHeuristique evaluationFunc) {
 		//TODO
 		startTime=System.currentTimeMillis();
-		int [] bestMove = null;
 		int[][]move=state.possibleMovesInterne(!state.getLastPlayerInterne());
+		int [] bestMove = move[0];
 		for (int depth=1; depth<MaxDepth;depth++){
 			if (System.currentTimeMillis() - startTime > MaxAllowedTime) break;
 			double val = Integer.MIN_VALUE;
@@ -25,7 +33,7 @@ public class IDAlphaBeta {
 					double score = alphaBeta(successor, Integer.MIN_VALUE, Integer.MAX_VALUE, depth,evaluationFunc);
 				    if (score > val) {
 				    	val=score;
-				    	bestMove = move[i];//TODO
+				    	bestMove = move[i];
 				    }
 				    i++;
 				  }

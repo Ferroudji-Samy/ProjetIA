@@ -24,6 +24,8 @@ public class CHeuristique implements IHeuristique {
             
         }
 	};
+	
+	
 
 	
 	
