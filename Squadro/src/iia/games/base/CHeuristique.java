@@ -25,10 +25,7 @@ public class CHeuristique implements IHeuristique {
         }
 	};
 	
-	
 
-	
-	
 	@Override
 	public float eval(SquadroBoard plateau) {
 		// TODO Auto-generated method stub

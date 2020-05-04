@@ -12,7 +12,7 @@ public class Jeu {
 	 */
 	public static SquadroBoard initialisation() {
 		
-		String filename="C:\\Users\\Lelouch\\Desktop\\Arbitre\\save.txt";
+		String filename="save.txt";
 		
 		int [][]init=new int[7][7];
 
