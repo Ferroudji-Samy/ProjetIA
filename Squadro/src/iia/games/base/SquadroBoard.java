@@ -597,7 +597,7 @@ public class SquadroBoard implements IPartie2{
 		SquadroBoard sb = new SquadroBoard(this.plateau, this.j1, this.j2);
 		sb.lastPlayer = this.lastPlayer;
 		sb.lastPlayerInterne = this.lastPlayerInterne;
-		return sb;
+		return sb; 
 	}
 
 	
