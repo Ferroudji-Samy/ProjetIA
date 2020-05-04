@@ -48,8 +48,6 @@ public class SquadroBoard implements IPartie2{
 		colChiffre.put(4, "E");
 		colChiffre.put(5, "F");
 		colChiffre.put(6, "G");
-		
-		this.plateau=p;
 
 		this.setLastPlayer(null);
 		this.setLastPlayerInterne(false);
@@ -594,7 +592,15 @@ public class SquadroBoard implements IPartie2{
 				p[i][j] = this.plateau[i][j];
 			}
 		}
-		SquadroBoard sb = new SquadroBoard(this.plateau, this.j1, this.j2);
+		
+		Piece[] joueur1=new Piece[this.j1.length];
+		Piece[] joueur2=new Piece[this.j1.length];
+		for(int i=0;i<this.j1.length;i++) {
+			joueur1[i]=j1[i].copyPiece();
+			joueur2[i]=j2[i].copyPiece();
+		}
+		
+		SquadroBoard sb = new SquadroBoard(p, joueur1, joueur2);
 		sb.lastPlayer = this.lastPlayer;
 		sb.lastPlayerInterne = this.lastPlayerInterne;
 		return sb; 

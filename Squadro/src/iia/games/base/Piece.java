@@ -17,6 +17,19 @@ public class Piece {
 		inGame=true;
 	}
 	
+	public Piece copyPiece() {
+		char R=this.representation;
+		int X=this.x;
+		int Y=this.y;
+		int Ar=this.AR;
+		int D=this.deplacement;
+		Piece p= new Piece(R, X, Y, D);
+		p.inGame=this.inGame;
+		p.setAR(Ar);
+		return p;
+		
+	}
+	
 	
 	public void setAR(int AR) {
 		this.AR=AR;

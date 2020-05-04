@@ -5,15 +5,14 @@ import iia.games.base.SquadroBoard;
 
 public class IDAlphaBeta {
 	
-	final int MaxAllowedTime = 10000;
+	final int MaxAllowedTime = 1000;
 	final int MaxDepth=1000000000;
 	private long startTime;
 	private boolean ami;
 	
-	public int[] IdAlphaBeta(SquadroBoard s, CHeuristique evaluationFunc) {
+	public int[] IdAlphaBeta(SquadroBoard state, CHeuristique evaluationFunc) {
 		//TODO
 		startTime=System.currentTimeMillis();
-		SquadroBoard state=s.copy();
 		int [] bestMove = null;
 		int[][]move=state.possibleMovesInterne(!state.getLastPlayerInterne());
 		for (int depth=1; depth<MaxDepth;depth++){
