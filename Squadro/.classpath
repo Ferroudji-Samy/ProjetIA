@@ -6,7 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/Lelouch/Documents/GitHub/ProjetIA/Squadro/iia-student-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Lelouch/Downloads/commons-cli-1.4-bin/commons-cli-1.4-javadoc.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Lelouch/Downloads/commons-cli-1.4-bin/commons-cli-1.4/commons-cli-1.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Lelouch/Downloads/commons-cli-1.4-bin/commons-cli-1.4/commons-cli-1.4-javadoc.jar"/>

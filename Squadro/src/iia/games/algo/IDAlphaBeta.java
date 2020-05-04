@@ -6,20 +6,21 @@ import iia.games.base.SquadroBoard;
 public class IDAlphaBeta {
 	
 	final int MaxAllowedTime = 10000;
-	final int MaxDepth=10000;
+	final int MaxDepth=1000000000;
 	private long startTime;
 	private boolean ami;
 	
-	public int[] IdAlphaBeta(SquadroBoard state, CHeuristique evaluationFunc) {
+	public int[] IdAlphaBeta(SquadroBoard s, CHeuristique evaluationFunc) {
 		//TODO
 		startTime=System.currentTimeMillis();
+		SquadroBoard state=s.copy();
 		int [] bestMove = null;
+		int[][]move=state.possibleMovesInterne(!state.getLastPlayerInterne());
 		for (int depth=1; depth<MaxDepth;depth++){
 			if (System.currentTimeMillis() - startTime > MaxAllowedTime) break;
 			double val = Integer.MIN_VALUE;
 				//solution provisoire
 				int i=0;
-				int[][]move=state.possibleMovesInterne(!state.getLastPlayerInterne());
 				////
 				for (SquadroBoard successor : state.successeurs(!state.getLastPlayerInterne())) {
 					double score = alphaBeta(successor, Integer.MIN_VALUE, Integer.MAX_VALUE, depth,evaluationFunc);

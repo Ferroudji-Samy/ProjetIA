@@ -52,6 +52,8 @@ public class MyChallenger implements IChallenger {
 		//return Aleatoire.alea(this.plateau,this.role);
 		IDAlphaBeta a=new IDAlphaBeta();
 		System.out.println("AlphaBeta");
+		SquadroBoard state=this.plateau.copy();
+		state.setLastPlayer("Horizontal");
 		return plateau.moveToString(a.IdAlphaBeta(this.plateau,CHeuristique.h1));
 		
 	}
